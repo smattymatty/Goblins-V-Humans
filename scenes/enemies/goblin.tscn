@@ -1,0 +1,86 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://scenes/enemies/enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/enemies/goblin.gd" type="Script" id=2]
+[ext_resource path="res://resources/animations/MoveLeft.tres" type="Animation" id=3]
+[ext_resource path="res://resources/animations/AttackLeft.tres" type="Animation" id=4]
+[ext_resource path="res://resources/animations/AttackDown.tres" type="Animation" id=5]
+[ext_resource path="res://resources/animations/AttackRight.tres" type="Animation" id=6]
+[ext_resource path="res://resources/animations/AttackUp.tres" type="Animation" id=7]
+[ext_resource path="res://resources/enemies/goblin.tres" type="Resource" id=8]
+[ext_resource path="res://resources/animations/MoveRight.tres" type="Animation" id=9]
+[ext_resource path="res://resources/animations/MoveUp.tres" type="Animation" id=10]
+[ext_resource path="res://resources/animations/MoveDown.tres" type="Animation" id=11]
+[ext_resource path="res://assets/ascii_characters.png" type="Texture" id=12]
+[ext_resource path="res://resources/animations/Upgrade.tres" type="Animation" id=13]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1 ]
+}
+
+[node name="goblin" groups=["goblin"] instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+stats = ExtResource( 8 )
+
+[node name="Sprite" parent="." index="0"]
+frame = 1
+
+[node name="Sprite" type="Sprite" parent="Sprite" index="0"]
+scale = Vector2( 1e-05, 1 )
+texture = ExtResource( 12 )
+hframes = 32
+vframes = 16
+frame = 2
+
+[node name="AnimationPlayer" parent="." index="2"]
+anims/AttackDown = ExtResource( 5 )
+anims/AttackLeft = ExtResource( 4 )
+anims/AttackRight = ExtResource( 6 )
+anims/AttackUp = ExtResource( 7 )
+anims/MoveDown = ExtResource( 11 )
+anims/MoveLeft = ExtResource( 3 )
+anims/MoveRight = ExtResource( 9 )
+anims/MoveUp = ExtResource( 10 )
+anims/RESET = SubResource( 1 )
+anims/Upgrade = ExtResource( 13 )
+
+[node name="CollisionShape2D" parent="target_area" index="0"]
+visible = false
+
+[node name="overhead_stats_position" parent="." index="9"]
+visible = false

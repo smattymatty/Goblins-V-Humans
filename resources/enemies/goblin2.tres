@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/scripts/enemy_stats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+nametag = "goblin OF EATING BEANS AND BEING REALLY FUCKING SILLY!!!!!!!!"
+base_hp = 100
+base_damage = 10
+base_speed = 5
+damage_multiplier = 1.0

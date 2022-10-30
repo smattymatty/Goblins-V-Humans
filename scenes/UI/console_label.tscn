@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/fonts/console_label.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scenes/UI/console_label.gd" type="Script" id=2]
+
+[node name="console_label" type="Label"]
+margin_right = 319.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 319, 0 )
+custom_fonts/font = ExtResource( 1 )
+text = "This Label will show up in the consoleffafafafafafaf
+there may be a third line, but who knows if it even reaches 4, that would be crazy, wouldn't it be?"
+autowrap = true
+script = ExtResource( 2 )
