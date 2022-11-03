@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/fonts/console_label.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/fonts/C64_Pro-STYLE.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://scenes/UI/overhead_stats.gd" type="Script" id=3]
+[ext_resource path="res://resources/ui_theme.tres" type="Theme" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 12
@@ -69,16 +70,27 @@ rect_min_size = Vector2( 73, 13 )
 custom_fonts/font = ExtResource( 1 )
 text = "dmg:10"
 
-[node name="name_label" type="Label" parent="stats"]
+[node name="name_scroll_bar" type="ScrollContainer" parent="stats"]
 margin_left = 3.0
-margin_top = 5.0
+margin_top = 4.0
 margin_right = 157.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 73, 13 )
+margin_bottom = 29.0
+rect_min_size = Vector2( 154, -3 )
+theme = ExtResource( 4 )
+scroll_vertical_enabled = false
+
+[node name="name_label" type="Label" parent="stats/name_scroll_bar"]
+margin_right = 171.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 155, 13 )
 custom_fonts/font = SubResource( 1 )
 text = "Enemy Name Here"
-clip_text = true
 
 [node name="remove_timer" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[node name="scroll_timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="scroll_timer" to="." method="_on_scroll_timer_timeout"]

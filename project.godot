@@ -25,6 +25,11 @@ _global_script_classes=[ {
 "path": "res://resources/scripts/enemy_stats.gd"
 }, {
 "base": "Resource",
+"class": "PersonalInfo",
+"language": "GDScript",
+"path": "res://resources/scripts/personal_info.gd"
+}, {
+"base": "Resource",
 "class": "PlayerStats",
 "language": "GDScript",
 "path": "res://resources/scripts/player_stats.gd"
@@ -33,6 +38,7 @@ _global_script_class_icons={
 "Character": "",
 "Enemy": "",
 "EnemyStats": "",
+"PersonalInfo": "",
 "PlayerStats": ""
 }
 
@@ -51,6 +57,10 @@ SignalManager="*res://singletons/signal_manager.gd"
 
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
+
+[global]
+
+display=false
 
 [gui]
 

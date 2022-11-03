@@ -2,8 +2,18 @@ extends Node2D
 
 var mouse_targeted 
 
+onready var tile_map: TileMap = $"%TileMap"
 onready var mouse_area: Area2D = $mouse_area
 onready var mouseover_timer: Timer = $"%mouseover_timer"
+
+func _ready() -> void:
+	TurnManager.connect("turn_passed",self,'_turn_passed')
+	randomize()
+
+func _turn_passed():
+	if TurnManager.death_fog_is_active == true:
+		pass
+		
 
 func _process(delta: float) -> void:
 	mouse_area.global_position = get_global_mouse_position()
@@ -23,8 +33,6 @@ func _on_mouse_area_area_entered(area: Area2D) -> void:
 	mouse_targeted = area.get_parent()
 	yield(mouseover_timer, 'timeout')
 	instance_overhead_stats(mouse_targeted)
-	
-
 
 func _on_mouse_area_area_exited(area: Area2D) -> void:
 	mouseover_timer.stop()
@@ -45,25 +53,26 @@ func instance_overhead_stats(target) -> void:
 
 func _on_left_ground_body_entered(body: Node) -> void:
 	if body.is_in_group('goblin'):
-		body.on_enemy_ground = true
-		print('goblin entered area')
+		body.on_ground = 'Enemy'
+	elif body.is_in_group('human'):
+		body.on_ground = 'Ally'
 
 func _on_left_ground_body_exited(body: Node) -> void:
-	if body.is_in_group('goblin'):
-		body.on_enemy_ground = false
-
+	pass
+		
 func _on_center_area_body_entered(body: Node) -> void:
 	if body.is_in_group('enemy'):
-		body.on_center_ground = true
+		body.on_ground = 'Center'
 
 func _on_center_area_body_exited(body: Node) -> void:
-	if body.is_in_group('enemy'):
-		body.on_center_ground = false
+	pass
 
 func _on_right_ground_body_entered(body: Node) -> void:
 	if body.is_in_group('human'):
-		body.on_enemy_ground = true
+		body.on_ground = 'Enemy'
+	elif body.is_in_group('goblin'):
+		body.on_ground = 'Ally'
 
 func _on_right_ground_body_exited(body: Node) -> void:
-	if body.is_in_group('human'):
-		body.on_enemy_ground = false
+	pass
+	

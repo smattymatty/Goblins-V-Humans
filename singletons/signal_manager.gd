@@ -17,6 +17,7 @@ func emit_mouse_left_target_area(target) -> void:
 
 func emit_enemy_died(enemy) -> void:
 	emit_signal('enemy_died', enemy)
-
-func emit_speed_array_info(array) -> void:
-	emit_signal('speed_array', array)
+	SignalManager.emit_console_label(str(enemy.nametag) + ' has died!', Color.red)
+	
+func emit_speed_array(sorted_entities) -> void:
+	emit_signal("speed_array", sorted_entities)

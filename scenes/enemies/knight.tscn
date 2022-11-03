@@ -1,16 +1,8 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/enemies/enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/enemies/knight.gd" type="Script" id=2]
 [ext_resource path="res://resources/enemies/knight.tres" type="Resource" id=3]
-[ext_resource path="res://resources/animations/AttackUp.tres" type="Animation" id=4]
-[ext_resource path="res://resources/animations/MoveUp.tres" type="Animation" id=5]
-[ext_resource path="res://resources/animations/MoveDown.tres" type="Animation" id=6]
-[ext_resource path="res://resources/animations/AttackDown.tres" type="Animation" id=7]
-[ext_resource path="res://resources/animations/AttackLeft.tres" type="Animation" id=8]
-[ext_resource path="res://resources/animations/AttackRight.tres" type="Animation" id=9]
-[ext_resource path="res://resources/animations/MoveRight.tres" type="Animation" id=10]
-[ext_resource path="res://resources/animations/MoveLeft.tres" type="Animation" id=11]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -88,13 +80,5 @@ stats = ExtResource( 3 )
 frame = 3
 
 [node name="AnimationPlayer" parent="." index="2"]
-anims/AttackDown = ExtResource( 7 )
-anims/AttackLeft = ExtResource( 8 )
-anims/AttackRight = ExtResource( 9 )
-anims/AttackUp = ExtResource( 4 )
-anims/MoveDown = ExtResource( 6 )
-anims/MoveLeft = ExtResource( 11 )
-anims/MoveRight = ExtResource( 10 )
-anims/MoveUp = ExtResource( 5 )
 anims/RESET = SubResource( 1 )
 anims/Upgrade = SubResource( 2 )

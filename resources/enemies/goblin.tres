@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-nametag = "goblin"
+nametag = "Goblin"
 base_hp = 100
 base_damage = 10
 base_speed = 10

@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-nametag = "Player ayer ayer, ADD A FOURTH LINE PLEASE! MAYBE A FIFTH LOL bee"
+nametag = "Player "
 max_hp = 1
 base_damage = 6
 weapon_damage = 12
