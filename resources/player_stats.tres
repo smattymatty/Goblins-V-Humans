@@ -4,9 +4,24 @@
 
 [resource]
 script = ExtResource( 1 )
-nametag = "Player "
-max_hp = 1
-base_damage = 6
-weapon_damage = 12
-speed = 2
+nametag = "Player"
+max_hp = 10
+max_mana = 25
+base_damage = 5
+weapon_damage = 5
+speed = 8
 defense = 5
+defense_pierce = 3
+weapon_damage_type = "Physical"
+physical_resist = 1.0
+fire_resist = 1.0
+ice_resist = 1.0
+lightning_resist = 1.0
+physical_damage = 1.0
+fire_damage = 1.0
+ice_damage = 1.0
+lightning_damage = 1.0
+weapon_damage_multi = 1.0
+skill_damage = 1.0
+boost_multi = 1.0
+debuff_multi = 1.0

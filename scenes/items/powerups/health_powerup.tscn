@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/items/powerups/base_powerup.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/items/powerups/health_powerup.gd" type="Script" id=2]
+
+[node name="health_powerup" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+nametag = "Health Boost"
+function = "health boost"
+description = "+10 HP, +2 Max HP"
+
+[node name="Sprite" parent="." index="0"]
+region_rect = Rect2( 64, 0, 28, 29 )

@@ -9,20 +9,35 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node2D",
+"base": "KinematicBody2D",
 "class": "Character",
 "language": "GDScript",
-"path": "res://scenes/player/character.gd"
+"path": "res://scenes/character.gd"
+}, {
+"base": "Node2D",
+"class": "CharacterOld",
+"language": "GDScript",
+"path": "res://scenes/player/character_old.gd"
 }, {
 "base": "Character",
 "class": "Enemy",
 "language": "GDScript",
 "path": "res://scenes/enemies/enemy.gd"
 }, {
+"base": "Character",
+"class": "EnemyOld",
+"language": "GDScript",
+"path": "res://scenes/enemies/enemy_old.gd"
+}, {
 "base": "Resource",
 "class": "EnemyStats",
 "language": "GDScript",
 "path": "res://resources/scripts/enemy_stats.gd"
+}, {
+"base": "Node2D",
+"class": "OverheadLabel",
+"language": "GDScript",
+"path": "res://scenes/UI/overhead_label.gd"
 }, {
 "base": "Resource",
 "class": "PersonalInfo",
@@ -33,13 +48,28 @@ _global_script_classes=[ {
 "class": "PlayerStats",
 "language": "GDScript",
 "path": "res://resources/scripts/player_stats.gd"
+}, {
+"base": "Node2D",
+"class": "PowerUp",
+"language": "GDScript",
+"path": "res://scenes/items/powerups/base_powerup.gd"
+}, {
+"base": "Position2D",
+"class": "SpawnPoint",
+"language": "GDScript",
+"path": "res://scenes/world/spawn_position_1.gd"
 } ]
 _global_script_class_icons={
 "Character": "",
+"CharacterOld": "",
 "Enemy": "",
+"EnemyOld": "",
 "EnemyStats": "",
+"OverheadLabel": "",
 "PersonalInfo": "",
-"PlayerStats": ""
+"PlayerStats": "",
+"PowerUp": "",
+"SpawnPoint": ""
 }
 
 [application]
@@ -52,6 +82,12 @@ config/icon="res://icon.png"
 
 TurnManager="*res://singletons/turn_manager.gd"
 SignalManager="*res://singletons/signal_manager.gd"
+Global="*res://singletons/global.gd"
+
+[debug]
+
+gdscript/warnings/unused_variable=false
+gdscript/warnings/return_value_discarded=false
 
 [display]
 
@@ -147,6 +183,21 @@ r_click={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+escape={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+inventory={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":73,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+"character sheet"={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":67,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [layer_names]
 
@@ -156,6 +207,7 @@ r_click={
 2d_physics/layer_4="target_on_mouse"
 2d_physics/layer_5="target_area"
 2d_physics/layer_6="area_of_map"
+2d_physics/layer_7="item_pickup"
 
 [physics]
 

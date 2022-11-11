@@ -1,0 +1,718 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/UI/character_sheet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/UI/tab.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/UI/player_menu.gd" type="Script" id=3]
+
+[node name="player_menu" type="Control"]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -300.0
+margin_right = 512.0
+margin_bottom = 300.0
+mouse_filter = 2
+script = ExtResource( 3 )
+
+[node name="Tabs" type="HBoxContainer" parent="."]
+anchor_right = 0.062
+anchor_bottom = 0.08
+margin_left = 191.0
+margin_top = 57.0
+margin_right = 751.512
+margin_bottom = 49.0
+rect_min_size = Vector2( 624, 40 )
+mouse_filter = 2
+alignment = 1
+
+[node name="character_tab" parent="Tabs" instance=ExtResource( 2 )]
+
+[node name="inventory_tab" parent="Tabs" instance=ExtResource( 2 )]
+margin_left = 314.0
+margin_right = 378.0
+
+[node name="Label" parent="Tabs/inventory_tab" index="2"]
+text = "invt"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -321.0
+margin_top = -211.0
+margin_right = 321.0
+margin_bottom = 187.0
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -320.0
+margin_top = -210.0
+margin_right = 320.0
+margin_bottom = 186.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Inventory" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+margin_right = 1024.0
+margin_bottom = 608.0
+
+[node name="GridContainer" type="GridContainer" parent="Inventory"]
+margin_left = 208.0
+margin_top = 128.0
+margin_right = 576.0
+margin_bottom = 496.0
+columns = 5
+
+[node name="slot1" type="Control" parent="Inventory/GridContainer"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot1"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot1"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot2" type="Control" parent="Inventory/GridContainer"]
+margin_left = 68.0
+margin_right = 132.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot2"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot2"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot3" type="Control" parent="Inventory/GridContainer"]
+margin_left = 136.0
+margin_right = 200.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot3"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot3"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot4" type="Control" parent="Inventory/GridContainer"]
+margin_left = 204.0
+margin_right = 268.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot4"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot4"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot5" type="Control" parent="Inventory/GridContainer"]
+margin_left = 272.0
+margin_right = 336.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot5"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot5"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot6" type="Control" parent="Inventory/GridContainer"]
+margin_top = 68.0
+margin_right = 64.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot6"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot6"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot7" type="Control" parent="Inventory/GridContainer"]
+margin_left = 68.0
+margin_top = 68.0
+margin_right = 132.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot7"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot7"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot8" type="Control" parent="Inventory/GridContainer"]
+margin_left = 136.0
+margin_top = 68.0
+margin_right = 200.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot8"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot8"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot9" type="Control" parent="Inventory/GridContainer"]
+margin_left = 204.0
+margin_top = 68.0
+margin_right = 268.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot9"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot9"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot10" type="Control" parent="Inventory/GridContainer"]
+margin_left = 272.0
+margin_top = 68.0
+margin_right = 336.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot10"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot10"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot11" type="Control" parent="Inventory/GridContainer"]
+margin_top = 136.0
+margin_right = 64.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot11"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot11"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot12" type="Control" parent="Inventory/GridContainer"]
+margin_left = 68.0
+margin_top = 136.0
+margin_right = 132.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot12"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot12"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot13" type="Control" parent="Inventory/GridContainer"]
+margin_left = 136.0
+margin_top = 136.0
+margin_right = 200.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot13"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot13"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot14" type="Control" parent="Inventory/GridContainer"]
+margin_left = 204.0
+margin_top = 136.0
+margin_right = 268.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot14"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot14"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot15" type="Control" parent="Inventory/GridContainer"]
+margin_left = 272.0
+margin_top = 136.0
+margin_right = 336.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot15"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot15"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot16" type="Control" parent="Inventory/GridContainer"]
+margin_top = 204.0
+margin_right = 64.0
+margin_bottom = 268.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot16"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot16"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot17" type="Control" parent="Inventory/GridContainer"]
+margin_left = 68.0
+margin_top = 204.0
+margin_right = 132.0
+margin_bottom = 268.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot17"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot17"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot18" type="Control" parent="Inventory/GridContainer"]
+margin_left = 136.0
+margin_top = 204.0
+margin_right = 200.0
+margin_bottom = 268.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot18"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot18"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot19" type="Control" parent="Inventory/GridContainer"]
+margin_left = 204.0
+margin_top = 204.0
+margin_right = 268.0
+margin_bottom = 268.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot19"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot19"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot20" type="Control" parent="Inventory/GridContainer"]
+margin_left = 272.0
+margin_top = 204.0
+margin_right = 336.0
+margin_bottom = 268.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot20"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot20"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot21" type="Control" parent="Inventory/GridContainer"]
+margin_top = 272.0
+margin_right = 64.0
+margin_bottom = 336.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot21"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot21"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot22" type="Control" parent="Inventory/GridContainer"]
+margin_left = 68.0
+margin_top = 272.0
+margin_right = 132.0
+margin_bottom = 336.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot22"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot22"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot23" type="Control" parent="Inventory/GridContainer"]
+margin_left = 136.0
+margin_top = 272.0
+margin_right = 200.0
+margin_bottom = 336.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot23"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot23"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot24" type="Control" parent="Inventory/GridContainer"]
+margin_left = 204.0
+margin_top = 272.0
+margin_right = 268.0
+margin_bottom = 336.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot24"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot24"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="slot25" type="Control" parent="Inventory/GridContainer"]
+margin_left = 272.0
+margin_top = 272.0
+margin_right = 336.0
+margin_bottom = 336.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="ColorRect" type="ColorRect" parent="Inventory/GridContainer/slot25"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory/GridContainer/slot25"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 62, 62 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Character" parent="." instance=ExtResource( 1 )]
+unique_name_in_owner = true
+
+[editable path="Tabs/character_tab"]
+[editable path="Tabs/inventory_tab"]

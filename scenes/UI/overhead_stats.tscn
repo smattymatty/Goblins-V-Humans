@@ -31,6 +31,7 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="hp_label" type="Label" parent="stats"]
+unique_name_in_owner = true
 modulate = Color( 0.752941, 0.054902, 0.054902, 1 )
 margin_left = 4.0
 margin_top = 23.0
@@ -41,6 +42,7 @@ custom_fonts/font = ExtResource( 1 )
 text = "hp:100"
 
 [node name="spd_label" type="Label" parent="stats"]
+unique_name_in_owner = true
 modulate = Color( 0.168627, 0.458824, 0.137255, 1 )
 margin_left = 98.0
 margin_top = 23.0
@@ -51,6 +53,7 @@ custom_fonts/font = ExtResource( 1 )
 text = "spd:10"
 
 [node name="def_label" type="Label" parent="stats"]
+unique_name_in_owner = true
 modulate = Color( 0.129412, 0.439216, 0.564706, 1 )
 margin_left = 98.0
 margin_top = 36.0
@@ -61,6 +64,7 @@ custom_fonts/font = ExtResource( 1 )
 text = "def:5"
 
 [node name="dmg_label" type="Label" parent="stats"]
+unique_name_in_owner = true
 modulate = Color( 0.54902, 0.54902, 0.54902, 1 )
 margin_left = 4.0
 margin_top = 36.0
@@ -71,6 +75,7 @@ custom_fonts/font = ExtResource( 1 )
 text = "dmg:10"
 
 [node name="name_scroll_bar" type="ScrollContainer" parent="stats"]
+unique_name_in_owner = true
 margin_left = 3.0
 margin_top = 4.0
 margin_right = 157.0
@@ -80,17 +85,26 @@ theme = ExtResource( 4 )
 scroll_vertical_enabled = false
 
 [node name="name_label" type="Label" parent="stats/name_scroll_bar"]
+unique_name_in_owner = true
 margin_right = 171.0
 margin_bottom = 13.0
 rect_min_size = Vector2( 155, 13 )
 custom_fonts/font = SubResource( 1 )
 text = "Enemy Name Here"
 
-[node name="remove_timer" type="Timer" parent="."]
+[node name="remove_timer" type="Timer" parent="." groups=["overhead stats"]]
+unique_name_in_owner = true
 one_shot = true
 autostart = true
 
 [node name="scroll_timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.0
 one_shot = true
+
+[node name="update_timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.05
+autostart = true
 
 [connection signal="timeout" from="scroll_timer" to="." method="_on_scroll_timer_timeout"]

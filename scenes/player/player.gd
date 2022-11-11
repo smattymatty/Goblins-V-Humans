@@ -2,94 +2,85 @@ extends Character
 
 export(Resource) var stats = stats as PlayerStats
 
-var speed
+var mouse_pos:Vector2
+var mouse_direction:String
+
+onready var movement_indicator: Sprite = $"%movement_indicator"
 
 func _ready() -> void:
-	PREV_STATE = STATES.FREE
+	SignalManager.connect("entered_door",self,'moveup')
+	set_state('Combat','Out of Combat')
+	stats.mana = stats.max_mana
+	stats.hp = stats.max_hp
 	nametag = stats.nametag
 	speed = stats.speed
-	stats.hp = stats.max_hp
 
 func _turn_start() -> void:
-	print('player turn started')
-	set_state(PREV_STATE)
-	print(str(STATE))
+	speed = stats.speed
+	turn_state = 'Active'
+	match combat_state:
+		'Out of Combat':
+			remaining_moves = moves_per_turn
+		'In Combat':
+			remaining_moves = 1
+			
+func _unhandled_input(event: InputEvent) -> void:
+	match turn_state:
+		"Active":
+			if event is InputEventMouseMotion:
+				movement_indicator_on_mouse()
+			
+			if event.is_action_pressed("ui_left") and is_moving == false:
+				check_and_move_or_attack('Left')
+			elif event.is_action_pressed("ui_right") and is_moving == false:
+				check_and_move_or_attack('Right')
+			elif event.is_action_pressed("ui_up") and is_moving == false:
+				check_and_move_or_attack('Up')
+			elif event.is_action_pressed("ui_down") and is_moving == false:
+				check_and_move_or_attack('Down')
+			elif event.is_action_pressed("click") and is_moving == false:
+				check_and_move_or_attack(mouse_direction)
+			elif event.is_action_pressed("end_turn") and is_moving == false:
+				cant_move()
+				
+func _process(delta: float) -> void:
+	stats.powerups = powerups
+	if is_moving == true or turn_state != "Active":
+		movement_indicator.hide()
+	else:
+		movement_indicator.show()
+	if stats.hp > stats.max_hp:
+		stats.hp = stats.max_hp
 	
 func _turn_end() -> void:
-	set_state(STATES.NOT_FREE)
-	yield(animation,'animation_finished')
+	set_state('Turn','Inactive')
 	TurnManager.player_turn_finished()
-	
-func _process(delta: float) -> void:
-	speed = stats.speed # need a local variable to read from Entities script that calculates speeds
-
-func _unhandled_input(event: InputEvent) -> void:
-	match STATE:
-		STATES.FREE:
-			if event.is_action_pressed("ui_right") or event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down") or event.is_action_pressed("ui_left"):
-				move(event)
-			if event.is_action_pressed("end_turn"):
-				animation.queue('EndTurnEarly')
-				_turn_end()
-
-func move(event) -> void:
-	print('should move')
-	if event.is_action_pressed("ui_down"):
-		last_moved_direction = 'Down'
-		if not raycast_down.is_colliding():
-			self.global_position.y += 32
-			animation.queue('MoveDown')
-			_turn_end()
-		else:
-			handle_collisions(raycast_down.get_collider())
-	elif event.is_action_pressed("ui_up"):
-		last_moved_direction = 'Up'
-		if not raycast_up.is_colliding():
-			self.global_position.y -= 32
-			animation.queue('MoveUp')
-			_turn_end()
-		else:
-			handle_collisions(raycast_up.get_collider())
-	elif event.is_action_pressed("ui_left"):
-		last_moved_direction = 'Left'
-		if not raycast_left.is_colliding():
-			self.global_position.x -= 32
-			animation.queue('MoveLeft')
-			_turn_end()
-		else:
-			handle_collisions(raycast_left.get_collider())
-	elif event.is_action_pressed("ui_right"):
-		last_moved_direction = 'Right'
-		if not raycast_right.is_colliding():
-			self.global_position.x += 32
-			animation.queue('MoveRight')
-			_turn_end()
-		else:
-			handle_collisions(raycast_right.get_collider())
-			
-func handle_collisions(collided_with) -> void:
-	if collided_with.is_in_group('enemy'):
-		attack(collided_with)
-	
-func attack(target) -> void:
-	animation.play('Attack' + str(last_moved_direction))
-	var total_damage = stats.base_damage + stats.weapon_damage
-	target.take_damage(total_damage, self)
-	_turn_end()
-
-func take_damage(amount, damager) -> void:
-	stats.hp -= amount
-	SignalManager.emit_console_label(str(damager.nametag) + ' dealt ' + str(amount) + " damage to " + str(self.stats.nametag), Color.white)
-	if stats.hp <= 0:
-		die()
 		
-func take_true_damage(amount, damager) -> void:
-	stats.hp -= amount
-	SignalManager.emit_console_label(str(damager.nametag) + ' dealt ' + str(amount) + " damage to " + str(self.stats.nametag), Color.white)
-	if stats.hp <= 0:
-		die()
-
-func die() -> void:
-	queue_free()
-	print('you are dead')
-	SignalManager.emit_enemy_died(self)
+func movement_indicator_on_mouse() -> void:
+	mouse_pos = get_global_mouse_position()
+	var mouse_direction_to = mouse_pos.direction_to(self.global_position).round()
+#	if mouse_pos.y - self.global_position.y < 16 and mouse_pos.y - self.global_position.y > -16:
+	if mouse_direction_to == Vector2.RIGHT:
+		movement_indicator.global_position = self.global_position + Vector2(-32,0)
+		mouse_direction = 'Left'
+	elif mouse_direction_to == Vector2.LEFT:
+		movement_indicator.global_position = self.global_position + Vector2(32,0)
+		mouse_direction = 'Right'
+#	elif mouse_pos.x - self.global_position.x > -640 or mouse_pos.x - self.global_position.x < 640:		
+	elif mouse_direction_to == Vector2.DOWN:
+		movement_indicator.global_position = self.global_position + Vector2(0,-32)
+		mouse_direction = 'Up'
+	elif mouse_direction_to == Vector2.UP:
+		movement_indicator.global_position = self.global_position + Vector2(0,32)
+		mouse_direction = 'Down'
+		
+func check_and_move_or_attack(direction) -> void:
+	set_raycast_to(direction)
+	yield(get_tree(),"idle_frame")
+	if check_and_set_collider() == false:
+		move(direction, 1)
+	elif check_and_set_collider() == true:
+		if collider.is_in_group('enemy'):
+			attack(direction,collider)
+		elif collider.is_in_group('powerup'):
+			move(direction,1)

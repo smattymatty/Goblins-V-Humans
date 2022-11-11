@@ -4,14 +4,32 @@ extends Control
 onready var turn_label: Label = $turn_label
 onready var speed_array_label: Label = $speed_array_label
 onready var cycle_label: Label = $cycle_label
+onready var options_menu: Control = $"%options menu"
 
 func _ready() -> void:
+# warning-ignore:return_value_discarded
 	SignalManager.connect("speed_array", self, 'update_speeds')
-
-func _process(delta: float) -> void:
+	options_menu.hide()
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("escape") and options_menu.visible == false:
+		get_tree().paused = true
+		options_menu.show()
+	elif event.is_action_pressed("escape") and options_menu.visible == true:
+		options_menu.hide()
+		get_tree().paused = false
+		
+		
+func _process(_delta: float) -> void:
 	turn_label.text = "Turns Passed = " + str(TurnManager.turns_passed)
 	cycle_label.text = str(TurnManager.current_cycle, " : ", str(TurnManager.current_cycle_number))
 
 func update_speeds(array) -> void:
 	if array.size() > 0:
-		speed_array_label.text = 'Order of Turns: ' + str(array[0].nametag)
+		speed_array_label.text = 'Order of Turns: ' + str(convert_to_nametags(array))
+
+func convert_to_nametags(entity_array) -> Array:
+	var new_array:Array = []
+	for i in entity_array:
+		new_array.append(i.nametag)
+	return new_array

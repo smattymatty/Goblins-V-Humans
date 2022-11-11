@@ -1,0 +1,110 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/fonts/C64_Pro-STYLE.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scenes/UI/options menu.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 12
+font_data = ExtResource( 1 )
+
+[node name="options menu" type="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -300.0
+margin_right = 512.0
+margin_bottom = 300.0
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -203.0
+margin_top = -117.0
+margin_right = 203.0
+margin_bottom = 117.0
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -202.0
+margin_top = -116.0
+margin_right = 202.0
+margin_bottom = 116.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="debug_level" type="Label" parent="."]
+unique_name_in_owner = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -193.0
+margin_top = -108.0
+margin_right = -94.0
+margin_bottom = -94.0
+custom_fonts/font = SubResource( 1 )
+text = "Debug Level - "
+
+[node name="debug_slider" type="HSlider" parent="debug_level"]
+unique_name_in_owner = true
+margin_left = 306.0
+margin_right = 378.0
+margin_bottom = 16.0
+max_value = 8.0
+
+[node name="time_btwn_turns" type="Label" parent="."]
+unique_name_in_owner = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -193.0
+margin_top = -92.0
+margin_right = -94.0
+margin_bottom = -78.0
+custom_fonts/font = SubResource( 1 )
+text = "Debug Level - "
+
+[node name="time_btwn_turns_slider" type="HSlider" parent="time_btwn_turns"]
+unique_name_in_owner = true
+margin_left = 306.0
+margin_right = 378.0
+margin_bottom = 16.0
+max_value = 5.0
+step = 0.2
+
+[node name="goblin_spawn_button" type="Button" parent="."]
+unique_name_in_owner = true
+anchor_left = 0.443
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.551
+margin_left = -142.632
+margin_top = 95.0
+margin_right = -106.0
+margin_bottom = 84.4
+text = "spawn goblin"
+
+[node name="human_spawn_button" type="Button" parent="."]
+unique_name_in_owner = true
+anchor_left = 0.443
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.551
+margin_left = 159.368
+margin_top = 95.0
+margin_right = 201.0
+margin_bottom = 84.4
+text = "spawn human"
+
+[connection signal="value_changed" from="debug_level/debug_slider" to="." method="_on_debug_slider_value_changed"]
+[connection signal="value_changed" from="time_btwn_turns/time_btwn_turns_slider" to="." method="_on_time_btwn_turns_slider_value_changed"]
+[connection signal="pressed" from="goblin_spawn_button" to="." method="_on_goblin_spawn_button_pressed"]
+[connection signal="pressed" from="human_spawn_button" to="." method="_on_human_spawn_button_pressed"]

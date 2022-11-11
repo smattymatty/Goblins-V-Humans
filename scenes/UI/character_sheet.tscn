@@ -1,0 +1,1068 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/fonts/C64_Pro-STYLE.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://resources/ui_theme.tres" type="Theme" id=2]
+[ext_resource path="res://scenes/UI/character_sheet.gd" type="Script" id=3]
+[ext_resource path="res://resources/player_stats.tres" type="Resource" id=4]
+[ext_resource path="res://scenes/UI/stats_sheet.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 26
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 10
+outline_size = 2
+outline_color = Color( 1, 1, 1, 0.988235 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 10
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 10
+outline_size = 2
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 18
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 10
+font_data = ExtResource( 1 )
+
+[node name="Character" type="Control"]
+margin_right = 1024.0
+margin_bottom = 608.0
+mouse_filter = 2
+script = ExtResource( 3 )
+stats = ExtResource( 4 )
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -320.0
+margin_top = -210.0
+margin_right = 320.0
+margin_bottom = 186.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="stats_sheet" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( -112, 256 )
+script = ExtResource( 5 )
+
+[node name="ColorRect" type="ColorRect" parent="stats_sheet"]
+margin_left = 208.0
+margin_top = 112.0
+margin_right = 407.0
+margin_bottom = 464.0
+
+[node name="ColorRect2" type="ColorRect" parent="stats_sheet"]
+margin_left = 209.0
+margin_top = 113.0
+margin_right = 406.0
+margin_bottom = 463.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="stats_title" type="Label" parent="stats_sheet"]
+margin_left = 212.0
+margin_top = 117.0
+margin_right = 292.0
+margin_bottom = 156.0
+custom_fonts/font = SubResource( 1 )
+text = "STATS"
+
+[node name="statscontainer" type="GridContainer" parent="stats_sheet"]
+unique_name_in_owner = true
+margin_left = 212.0
+margin_top = 150.0
+margin_right = 397.0
+margin_bottom = 462.0
+rect_min_size = Vector2( 185, 312 )
+
+[node name="hp_label" type="Label" parent="stats_sheet/statscontainer"]
+unique_name_in_owner = true
+modulate = Color( 0.623529, 0.305882, 0.266667, 1 )
+margin_right = 190.0
+margin_bottom = 11.0
+mouse_filter = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Health Points: 100/100"
+
+[node name="stat_info" type="Control" parent="stats_sheet/statscontainer/hp_label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.0
+margin_right = -228.0
+
+[node name="ColorRect" type="ColorRect" parent="stats_sheet/statscontainer/hp_label/stat_info"]
+margin_left = 14.0
+margin_right = 156.0
+margin_bottom = 41.0
+
+[node name="ColorRect2" type="ColorRect" parent="stats_sheet/statscontainer/hp_label/stat_info"]
+margin_left = 15.0
+margin_top = 1.0
+margin_right = 156.0
+margin_bottom = 40.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="stats_sheet/statscontainer/hp_label/stat_info"]
+margin_left = 21.0
+margin_top = 1.0
+margin_right = 179.0
+margin_bottom = 43.0
+custom_fonts/font = SubResource( 6 )
+text = "Character dies upon reaching 0 health points"
+autowrap = true
+
+[node name="mana_label" type="Label" parent="stats_sheet/statscontainer"]
+unique_name_in_owner = true
+modulate = Color( 0.533333, 0.494118, 0.796078, 1 )
+margin_top = 15.0
+margin_right = 190.0
+margin_bottom = 26.0
+mouse_filter = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Mana = 25/25"
+
+[node name="stat_info" type="Control" parent="stats_sheet/statscontainer/mana_label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.0
+margin_right = -228.0
+
+[node name="ColorRect" type="ColorRect" parent="stats_sheet/statscontainer/mana_label/stat_info"]
+margin_left = 14.0
+margin_right = 156.0
+margin_bottom = 41.0
+
+[node name="ColorRect2" type="ColorRect" parent="stats_sheet/statscontainer/mana_label/stat_info"]
+margin_left = 15.0
+margin_top = 1.0
+margin_right = 156.0
+margin_bottom = 40.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="stats_sheet/statscontainer/mana_label/stat_info"]
+margin_left = 21.0
+margin_top = 7.0
+margin_right = 162.0
+margin_bottom = 48.0
+custom_fonts/font = SubResource( 6 )
+text = "Resource needed to use skills"
+autowrap = true
+
+[node name="dmg_label" type="Label" parent="stats_sheet/statscontainer"]
+unique_name_in_owner = true
+modulate = Color( 0.678431, 0.678431, 0.678431, 1 )
+margin_top = 30.0
+margin_right = 190.0
+margin_bottom = 41.0
+mouse_filter = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Base Damage: 10"
+
+[node name="stat_info" type="Control" parent="stats_sheet/statscontainer/dmg_label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.0
+margin_right = -228.0
+
+[node name="ColorRect" type="ColorRect" parent="stats_sheet/statscontainer/dmg_label/stat_info"]
+margin_left = 14.0
+margin_right = 156.0
+margin_bottom = 41.0
+
+[node name="ColorRect2" type="ColorRect" parent="stats_sheet/statscontainer/dmg_label/stat_info"]
+margin_left = 15.0
+margin_top = 1.0
+margin_right = 156.0
+margin_bottom = 40.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="stats_sheet/statscontainer/dmg_label/stat_info"]
+margin_left = 17.0
+margin_top = 1.0
+margin_right = 158.0
+margin_bottom = 42.0
+custom_fonts/font = SubResource( 6 )
+text = "Damage dealt without a weapon equipped"
+autowrap = true
+
+[node name="def_label" type="Label" parent="stats_sheet/statscontainer"]
+unique_name_in_owner = true
+modulate = Color( 0.415686, 0.74902, 0.776471, 1 )
+margin_top = 45.0
+margin_right = 190.0
+margin_bottom = 56.0
+mouse_filter = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Defense: 5"
+
+[node name="stat_info" type="Control" parent="stats_sheet/statscontainer/def_label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.0
+margin_right = -228.0
+
+[node name="ColorRect" type="ColorRect" parent="stats_sheet/statscontainer/def_label/stat_info"]
+margin_left = 14.0
+margin_right = 156.0
+margin_bottom = 41.0
+
+[node name="ColorRect2" type="ColorRect" parent="stats_sheet/statscontainer/def_label/stat_info"]
+margin_left = 15.0
+margin_top = 1.0
+margin_right = 156.0
+margin_bottom = 40.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="stats_sheet/statscontainer/def_label/stat_info"]
+margin_left = 17.0
+margin_top = 1.0
+margin_right = 158.0
+margin_bottom = 40.0
+custom_fonts/font = SubResource( 6 )
+text = "Reduce Damage taken by this flat amount"
+valign = 1
+autowrap = true
+
+[node name="spd_label" type="Label" parent="stats_sheet/statscontainer"]
+unique_name_in_owner = true
+modulate = Color( 0.360784, 0.670588, 0.368627, 1 )
+margin_top = 60.0
+margin_right = 190.0
+margin_bottom = 71.0
+mouse_filter = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Speed: 10"
+
+[node name="stat_info" type="Control" parent="stats_sheet/statscontainer/spd_label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.0
+margin_right = -228.0
+
+[node name="ColorRect" type="ColorRect" parent="stats_sheet/statscontainer/spd_label/stat_info"]
+margin_left = 14.0
+margin_right = 156.0
+margin_bottom = 155.0
+
+[node name="ColorRect2" type="ColorRect" parent="stats_sheet/statscontainer/spd_label/stat_info"]
+margin_left = 15.0
+margin_top = 1.0
+margin_right = 156.0
+margin_bottom = 154.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="stats_sheet/statscontainer/spd_label/stat_info"]
+margin_left = 17.0
+margin_top = 1.0
+margin_right = 158.0
+margin_bottom = 40.0
+custom_fonts/font = SubResource( 6 )
+text = "Determines the order of turns
+
+Top 3 speeds have a 10% chance to move for free, increased by 1% per point above the average of the 3."
+valign = 1
+autowrap = true
+
+[node name="pierce_label" type="Label" parent="stats_sheet/statscontainer"]
+unique_name_in_owner = true
+modulate = Color( 0.603922, 0.886275, 0.607843, 1 )
+margin_top = 75.0
+margin_right = 190.0
+margin_bottom = 86.0
+mouse_filter = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Pierce: 2"
+
+[node name="stat_info" type="Control" parent="stats_sheet/statscontainer/pierce_label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.0
+margin_right = -228.0
+
+[node name="ColorRect" type="ColorRect" parent="stats_sheet/statscontainer/pierce_label/stat_info"]
+margin_left = 14.0
+margin_right = 156.0
+margin_bottom = 45.0
+
+[node name="ColorRect2" type="ColorRect" parent="stats_sheet/statscontainer/pierce_label/stat_info"]
+margin_left = 15.0
+margin_top = 1.0
+margin_right = 156.0
+margin_bottom = 44.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="stats_sheet/statscontainer/pierce_label/stat_info"]
+margin_left = 17.0
+margin_top = 3.0
+margin_right = 158.0
+margin_bottom = 42.0
+custom_fonts/font = SubResource( 6 )
+text = "Ignore this amount of enemy defense"
+valign = 1
+autowrap = true
+
+[node name="phys_res_label" type="Label" parent="stats_sheet/statscontainer"]
+unique_name_in_owner = true
+modulate = Color( 0.384314, 0.384314, 0.384314, 1 )
+margin_top = 90.0
+margin_right = 190.0
+margin_bottom = 101.0
+mouse_filter = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Phys Resistance: 0%"
+
+[node name="stat_info" type="Control" parent="stats_sheet/statscontainer/phys_res_label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.0
+margin_right = -228.0
+
+[node name="ColorRect" type="ColorRect" parent="stats_sheet/statscontainer/phys_res_label/stat_info"]
+margin_left = 14.0
+margin_right = 156.0
+margin_bottom = 45.0
+
+[node name="ColorRect2" type="ColorRect" parent="stats_sheet/statscontainer/phys_res_label/stat_info"]
+margin_left = 15.0
+margin_top = 1.0
+margin_right = 156.0
+margin_bottom = 44.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="stats_sheet/statscontainer/phys_res_label/stat_info"]
+margin_left = 17.0
+margin_top = 3.0
+margin_right = 158.0
+margin_bottom = 42.0
+custom_fonts/font = SubResource( 6 )
+text = "Reduce Physical Damage taken by this percent"
+valign = 1
+autowrap = true
+
+[node name="fire_res_label" type="Label" parent="stats_sheet/statscontainer"]
+unique_name_in_owner = true
+modulate = Color( 0.631373, 0.407843, 0.235294, 1 )
+margin_top = 105.0
+margin_right = 190.0
+margin_bottom = 116.0
+mouse_filter = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Fire Resistance: 0%"
+
+[node name="stat_info" type="Control" parent="stats_sheet/statscontainer/fire_res_label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.0
+margin_right = -228.0
+
+[node name="ColorRect" type="ColorRect" parent="stats_sheet/statscontainer/fire_res_label/stat_info"]
+margin_left = 14.0
+margin_right = 156.0
+margin_bottom = 45.0
+
+[node name="ColorRect2" type="ColorRect" parent="stats_sheet/statscontainer/fire_res_label/stat_info"]
+margin_left = 15.0
+margin_top = 1.0
+margin_right = 156.0
+margin_bottom = 44.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="stats_sheet/statscontainer/fire_res_label/stat_info"]
+margin_left = 17.0
+margin_top = 3.0
+margin_right = 158.0
+margin_bottom = 42.0
+custom_fonts/font = SubResource( 6 )
+text = "Reduce Fire Damage taken by this percent"
+valign = 1
+autowrap = true
+
+[node name="ice_res_label" type="Label" parent="stats_sheet/statscontainer"]
+unique_name_in_owner = true
+modulate = Color( 0.415686, 0.74902, 0.776471, 1 )
+margin_top = 120.0
+margin_right = 190.0
+margin_bottom = 131.0
+mouse_filter = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Ice Resistance: 0%"
+
+[node name="stat_info" type="Control" parent="stats_sheet/statscontainer/ice_res_label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.0
+margin_right = -228.0
+
+[node name="ColorRect" type="ColorRect" parent="stats_sheet/statscontainer/ice_res_label/stat_info"]
+margin_left = 14.0
+margin_right = 156.0
+margin_bottom = 45.0
+
+[node name="ColorRect2" type="ColorRect" parent="stats_sheet/statscontainer/ice_res_label/stat_info"]
+margin_left = 15.0
+margin_top = 1.0
+margin_right = 156.0
+margin_bottom = 44.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="stats_sheet/statscontainer/ice_res_label/stat_info"]
+margin_left = 17.0
+margin_top = 3.0
+margin_right = 158.0
+margin_bottom = 42.0
+custom_fonts/font = SubResource( 6 )
+text = "Reduce Ice Damage taken by this percent"
+valign = 1
+autowrap = true
+
+[node name="lightning_res_label" type="Label" parent="stats_sheet/statscontainer"]
+unique_name_in_owner = true
+modulate = Color( 0.788235, 0.831373, 0.529412, 1 )
+margin_top = 135.0
+margin_right = 190.0
+margin_bottom = 146.0
+mouse_filter = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Lghtng Resistance: 0%"
+
+[node name="stat_info" type="Control" parent="stats_sheet/statscontainer/lightning_res_label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.0
+margin_right = -228.0
+
+[node name="ColorRect" type="ColorRect" parent="stats_sheet/statscontainer/lightning_res_label/stat_info"]
+margin_left = 14.0
+margin_right = 156.0
+margin_bottom = 45.0
+
+[node name="ColorRect2" type="ColorRect" parent="stats_sheet/statscontainer/lightning_res_label/stat_info"]
+margin_left = 15.0
+margin_top = 1.0
+margin_right = 156.0
+margin_bottom = 44.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="stats_sheet/statscontainer/lightning_res_label/stat_info"]
+margin_left = 17.0
+margin_top = 3.0
+margin_right = 158.0
+margin_bottom = 42.0
+custom_fonts/font = SubResource( 6 )
+text = "Reduce Lightning Damage taken by this percent"
+valign = 1
+autowrap = true
+
+[node name="phys_dmg_label" type="Label" parent="stats_sheet/statscontainer"]
+unique_name_in_owner = true
+modulate = Color( 0.384314, 0.384314, 0.384314, 1 )
+margin_top = 150.0
+margin_right = 190.0
+margin_bottom = 161.0
+mouse_filter = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Phys damage: 0%"
+
+[node name="stat_info" type="Control" parent="stats_sheet/statscontainer/phys_dmg_label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.0
+margin_right = -228.0
+
+[node name="ColorRect" type="ColorRect" parent="stats_sheet/statscontainer/phys_dmg_label/stat_info"]
+margin_left = 14.0
+margin_right = 156.0
+margin_bottom = 45.0
+
+[node name="ColorRect2" type="ColorRect" parent="stats_sheet/statscontainer/phys_dmg_label/stat_info"]
+margin_left = 15.0
+margin_top = 1.0
+margin_right = 156.0
+margin_bottom = 44.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="stats_sheet/statscontainer/phys_dmg_label/stat_info"]
+margin_left = 17.0
+margin_top = 3.0
+margin_right = 158.0
+margin_bottom = 42.0
+custom_fonts/font = SubResource( 6 )
+text = "Increase Physical damage by this percent"
+valign = 1
+autowrap = true
+
+[node name="fire_dmg_label" type="Label" parent="stats_sheet/statscontainer"]
+unique_name_in_owner = true
+modulate = Color( 0.631373, 0.407843, 0.235294, 1 )
+margin_top = 165.0
+margin_right = 190.0
+margin_bottom = 176.0
+mouse_filter = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Fire Damage: 0%"
+
+[node name="stat_info" type="Control" parent="stats_sheet/statscontainer/fire_dmg_label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.0
+margin_right = -228.0
+
+[node name="ColorRect" type="ColorRect" parent="stats_sheet/statscontainer/fire_dmg_label/stat_info"]
+margin_left = 14.0
+margin_right = 156.0
+margin_bottom = 45.0
+
+[node name="ColorRect2" type="ColorRect" parent="stats_sheet/statscontainer/fire_dmg_label/stat_info"]
+margin_left = 15.0
+margin_top = 1.0
+margin_right = 156.0
+margin_bottom = 44.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="stats_sheet/statscontainer/fire_dmg_label/stat_info"]
+margin_left = 17.0
+margin_top = 3.0
+margin_right = 158.0
+margin_bottom = 42.0
+custom_fonts/font = SubResource( 6 )
+text = "Increase Fire damage by this percent"
+valign = 1
+autowrap = true
+
+[node name="ice_dmg_label" type="Label" parent="stats_sheet/statscontainer"]
+unique_name_in_owner = true
+modulate = Color( 0.415686, 0.74902, 0.776471, 1 )
+margin_top = 180.0
+margin_right = 190.0
+margin_bottom = 191.0
+mouse_filter = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Ice Damage: 0%"
+
+[node name="stat_info" type="Control" parent="stats_sheet/statscontainer/ice_dmg_label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.0
+margin_right = -228.0
+
+[node name="ColorRect" type="ColorRect" parent="stats_sheet/statscontainer/ice_dmg_label/stat_info"]
+margin_left = 14.0
+margin_right = 156.0
+margin_bottom = 45.0
+
+[node name="ColorRect2" type="ColorRect" parent="stats_sheet/statscontainer/ice_dmg_label/stat_info"]
+margin_left = 15.0
+margin_top = 1.0
+margin_right = 156.0
+margin_bottom = 44.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="stats_sheet/statscontainer/ice_dmg_label/stat_info"]
+margin_left = 17.0
+margin_top = 3.0
+margin_right = 158.0
+margin_bottom = 42.0
+custom_fonts/font = SubResource( 6 )
+text = "Increase Ice damage by this percent"
+valign = 1
+autowrap = true
+
+[node name="lightning_dmg_label" type="Label" parent="stats_sheet/statscontainer"]
+unique_name_in_owner = true
+modulate = Color( 0.788235, 0.831373, 0.529412, 1 )
+margin_top = 195.0
+margin_right = 190.0
+margin_bottom = 206.0
+mouse_filter = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Lghtng Damage: 0%"
+
+[node name="stat_info" type="Control" parent="stats_sheet/statscontainer/lightning_dmg_label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.0
+margin_right = -228.0
+
+[node name="ColorRect" type="ColorRect" parent="stats_sheet/statscontainer/lightning_dmg_label/stat_info"]
+margin_left = 14.0
+margin_right = 156.0
+margin_bottom = 45.0
+
+[node name="ColorRect2" type="ColorRect" parent="stats_sheet/statscontainer/lightning_dmg_label/stat_info"]
+margin_left = 15.0
+margin_top = 1.0
+margin_right = 156.0
+margin_bottom = 44.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="stats_sheet/statscontainer/lightning_dmg_label/stat_info"]
+margin_left = 17.0
+margin_top = 3.0
+margin_right = 158.0
+margin_bottom = 42.0
+custom_fonts/font = SubResource( 6 )
+text = "Increase Lightning damage by this percent"
+valign = 1
+autowrap = true
+
+[node name="weapon_dmg_label" type="Label" parent="stats_sheet/statscontainer"]
+unique_name_in_owner = true
+modulate = Color( 0.678431, 0.678431, 0.678431, 1 )
+margin_top = 210.0
+margin_right = 190.0
+margin_bottom = 221.0
+mouse_filter = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Weapon Damage: 0%"
+
+[node name="stat_info" type="Control" parent="stats_sheet/statscontainer/weapon_dmg_label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.0
+margin_right = -228.0
+
+[node name="ColorRect" type="ColorRect" parent="stats_sheet/statscontainer/weapon_dmg_label/stat_info"]
+margin_left = 14.0
+margin_right = 156.0
+margin_bottom = 45.0
+
+[node name="ColorRect2" type="ColorRect" parent="stats_sheet/statscontainer/weapon_dmg_label/stat_info"]
+margin_left = 15.0
+margin_top = 1.0
+margin_right = 156.0
+margin_bottom = 44.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="stats_sheet/statscontainer/weapon_dmg_label/stat_info"]
+margin_left = 17.0
+margin_top = 3.0
+margin_right = 158.0
+margin_bottom = 42.0
+custom_fonts/font = SubResource( 6 )
+text = "Increase Lightning damage by this percent"
+valign = 1
+autowrap = true
+
+[node name="skill_dmg_label" type="Label" parent="stats_sheet/statscontainer"]
+unique_name_in_owner = true
+modulate = Color( 0.603922, 0.886275, 0.607843, 1 )
+margin_top = 225.0
+margin_right = 190.0
+margin_bottom = 236.0
+mouse_filter = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Skill Damage: 0%"
+
+[node name="stat_info" type="Control" parent="stats_sheet/statscontainer/skill_dmg_label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.0
+margin_right = -228.0
+
+[node name="ColorRect" type="ColorRect" parent="stats_sheet/statscontainer/skill_dmg_label/stat_info"]
+margin_left = 14.0
+margin_right = 156.0
+margin_bottom = 45.0
+
+[node name="ColorRect2" type="ColorRect" parent="stats_sheet/statscontainer/skill_dmg_label/stat_info"]
+margin_left = 15.0
+margin_top = 1.0
+margin_right = 156.0
+margin_bottom = 44.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="stats_sheet/statscontainer/skill_dmg_label/stat_info"]
+margin_left = 17.0
+margin_top = 3.0
+margin_right = 158.0
+margin_bottom = 42.0
+custom_fonts/font = SubResource( 6 )
+text = "Increase Lightning damage by this percent"
+valign = 1
+autowrap = true
+
+[node name="boost_label" type="Label" parent="stats_sheet/statscontainer"]
+unique_name_in_owner = true
+modulate = Color( 0.627451, 0.341176, 0.639216, 1 )
+margin_top = 240.0
+margin_right = 190.0
+margin_bottom = 251.0
+mouse_filter = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Boost Effect: 0%"
+
+[node name="stat_info" type="Control" parent="stats_sheet/statscontainer/boost_label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.0
+margin_right = -228.0
+
+[node name="ColorRect" type="ColorRect" parent="stats_sheet/statscontainer/boost_label/stat_info"]
+margin_left = 14.0
+margin_right = 156.0
+margin_bottom = 45.0
+
+[node name="ColorRect2" type="ColorRect" parent="stats_sheet/statscontainer/boost_label/stat_info"]
+margin_left = 15.0
+margin_top = 1.0
+margin_right = 156.0
+margin_bottom = 44.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="stats_sheet/statscontainer/boost_label/stat_info"]
+margin_left = 17.0
+margin_top = 3.0
+margin_right = 158.0
+margin_bottom = 42.0
+custom_fonts/font = SubResource( 6 )
+text = "Increase Active Boost Effects by this percent"
+valign = 1
+autowrap = true
+
+[node name="debuff_label" type="Label" parent="stats_sheet/statscontainer"]
+unique_name_in_owner = true
+modulate = Color( 0.313726, 0.270588, 0.607843, 1 )
+margin_top = 255.0
+margin_right = 190.0
+margin_bottom = 266.0
+mouse_filter = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Debuff Resist: 0%"
+
+[node name="stat_info" type="Control" parent="stats_sheet/statscontainer/debuff_label"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.0
+margin_right = -228.0
+
+[node name="ColorRect" type="ColorRect" parent="stats_sheet/statscontainer/debuff_label/stat_info"]
+margin_left = 14.0
+margin_right = 156.0
+margin_bottom = 45.0
+
+[node name="ColorRect2" type="ColorRect" parent="stats_sheet/statscontainer/debuff_label/stat_info"]
+margin_left = 15.0
+margin_top = 1.0
+margin_right = 156.0
+margin_bottom = 44.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="stats_sheet/statscontainer/debuff_label/stat_info"]
+margin_left = 17.0
+margin_top = 3.0
+margin_right = 158.0
+margin_bottom = 42.0
+custom_fonts/font = SubResource( 6 )
+text = "Decrease Active Debuff Effects by this percent"
+valign = 1
+autowrap = true
+
+[node name="Active Effects" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Active Effects"]
+margin_left = 416.0
+margin_top = 351.0
+margin_right = 817.0
+margin_bottom = 465.0
+
+[node name="ColorRect2" type="ColorRect" parent="Active Effects"]
+margin_left = 417.0
+margin_top = 352.0
+margin_right = 816.0
+margin_bottom = 464.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="active_effects_title" type="Label" parent="Active Effects"]
+margin_left = 420.0
+margin_top = 355.0
+margin_right = 641.0
+margin_bottom = 394.0
+custom_fonts/font = SubResource( 4 )
+text = "ACTIVE EFFECTS"
+
+[node name="GridContainer" type="GridContainer" parent="Active Effects"]
+margin_left = 419.0
+margin_top = 374.0
+margin_right = 815.0
+margin_bottom = 463.0
+
+[node name="Label" type="Label" parent="Active Effects"]
+margin_left = 432.0
+margin_top = 384.0
+margin_right = 544.0
+margin_bottom = 416.0
+text = "yaya"
+
+[node name="Passive Effects" type="Control" parent="."]
+margin_left = 416.0
+margin_top = 109.0
+margin_right = 816.0
+margin_bottom = 333.0
+
+[node name="ColorRect" type="ColorRect" parent="Passive Effects"]
+margin_top = 3.0
+margin_right = 401.0
+margin_bottom = 237.0
+
+[node name="ColorRect2" type="ColorRect" parent="Passive Effects"]
+margin_left = 1.0
+margin_top = 4.0
+margin_right = 400.0
+margin_bottom = 236.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="passive_title" type="Label" parent="Passive Effects"]
+margin_left = 3.0
+margin_top = 6.0
+margin_right = 240.0
+margin_bottom = 45.0
+custom_fonts/font = SubResource( 4 )
+text = "PASSIVE EFFECTS"
+
+[node name="scrollcontainer" type="ScrollContainer" parent="Passive Effects"]
+margin_left = 3.0
+margin_top = 26.0
+margin_right = 411.0
+margin_bottom = 236.0
+theme = ExtResource( 2 )
+scroll_horizontal_enabled = false
+
+[node name="GridContainer" type="GridContainer" parent="Passive Effects/scrollcontainer"]
+margin_right = 396.0
+margin_bottom = 314.0
+columns = 2
+
+[node name="on turn start" type="Control" parent="Passive Effects/scrollcontainer/GridContainer"]
+margin_right = 196.0
+margin_bottom = 102.0
+rect_min_size = Vector2( 196, 102 )
+
+[node name="ColorRect" type="ColorRect" parent="Passive Effects/scrollcontainer/GridContainer/on turn start"]
+margin_right = 194.0
+margin_bottom = 102.994
+rect_min_size = Vector2( 128, 99 )
+
+[node name="ColorRect2" type="ColorRect" parent="Passive Effects/scrollcontainer/GridContainer/on turn start"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 193.0
+margin_bottom = 102.0
+rect_min_size = Vector2( 126, 100 )
+color = Color( 0, 0, 0, 1 )
+
+[node name="title_label" type="Label" parent="Passive Effects/scrollcontainer/GridContainer/on turn start"]
+modulate = Color( 0.796078, 0.494118, 0.458824, 1 )
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 153.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 5 )
+text = "On Turn Start:"
+
+[node name="on turn end" type="Control" parent="Passive Effects/scrollcontainer/GridContainer"]
+margin_left = 200.0
+margin_right = 396.0
+margin_bottom = 102.0
+rect_min_size = Vector2( 196, 102 )
+
+[node name="ColorRect" type="ColorRect" parent="Passive Effects/scrollcontainer/GridContainer/on turn end"]
+margin_right = 194.0
+margin_bottom = 102.994
+rect_min_size = Vector2( 128, 99 )
+
+[node name="ColorRect2" type="ColorRect" parent="Passive Effects/scrollcontainer/GridContainer/on turn end"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 193.0
+margin_bottom = 102.0
+rect_min_size = Vector2( 126, 100 )
+color = Color( 0, 0, 0, 1 )
+
+[node name="title_label" type="Label" parent="Passive Effects/scrollcontainer/GridContainer/on turn end"]
+modulate = Color( 0.796078, 0.494118, 0.458824, 1 )
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 153.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 5 )
+text = "On Turn End:"
+
+[node name="on move" type="Control" parent="Passive Effects/scrollcontainer/GridContainer"]
+margin_top = 106.0
+margin_right = 196.0
+margin_bottom = 208.0
+rect_min_size = Vector2( 196, 102 )
+
+[node name="ColorRect" type="ColorRect" parent="Passive Effects/scrollcontainer/GridContainer/on move"]
+margin_right = 194.0
+margin_bottom = 102.994
+rect_min_size = Vector2( 128, 99 )
+
+[node name="ColorRect2" type="ColorRect" parent="Passive Effects/scrollcontainer/GridContainer/on move"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 193.0
+margin_bottom = 102.0
+rect_min_size = Vector2( 126, 100 )
+color = Color( 0, 0, 0, 1 )
+
+[node name="title_label" type="Label" parent="Passive Effects/scrollcontainer/GridContainer/on move"]
+modulate = Color( 0.796078, 0.494118, 0.458824, 1 )
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 153.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 5 )
+text = "On Move:"
+
+[node name="on attack" type="Control" parent="Passive Effects/scrollcontainer/GridContainer"]
+margin_left = 200.0
+margin_top = 106.0
+margin_right = 396.0
+margin_bottom = 208.0
+rect_min_size = Vector2( 196, 102 )
+
+[node name="ColorRect" type="ColorRect" parent="Passive Effects/scrollcontainer/GridContainer/on attack"]
+margin_right = 194.0
+margin_bottom = 102.994
+rect_min_size = Vector2( 128, 99 )
+
+[node name="ColorRect2" type="ColorRect" parent="Passive Effects/scrollcontainer/GridContainer/on attack"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 193.0
+margin_bottom = 102.0
+rect_min_size = Vector2( 126, 100 )
+color = Color( 0, 0, 0, 1 )
+
+[node name="title_label" type="Label" parent="Passive Effects/scrollcontainer/GridContainer/on attack"]
+modulate = Color( 0.796078, 0.494118, 0.458824, 1 )
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 153.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 5 )
+text = "On Attack:"
+
+[node name="5" type="Control" parent="Passive Effects/scrollcontainer/GridContainer"]
+margin_top = 212.0
+margin_right = 196.0
+margin_bottom = 314.0
+rect_min_size = Vector2( 196, 102 )
+
+[node name="ColorRect" type="ColorRect" parent="Passive Effects/scrollcontainer/GridContainer/5"]
+margin_right = 194.0
+margin_bottom = 102.994
+rect_min_size = Vector2( 128, 99 )
+
+[node name="ColorRect2" type="ColorRect" parent="Passive Effects/scrollcontainer/GridContainer/5"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 193.0
+margin_bottom = 102.0
+rect_min_size = Vector2( 126, 100 )
+color = Color( 0, 0, 0, 1 )
+
+[node name="6" type="Control" parent="Passive Effects/scrollcontainer/GridContainer"]
+margin_left = 200.0
+margin_top = 212.0
+margin_right = 396.0
+margin_bottom = 314.0
+rect_min_size = Vector2( 196, 102 )
+
+[node name="ColorRect" type="ColorRect" parent="Passive Effects/scrollcontainer/GridContainer/6"]
+margin_right = 194.0
+margin_bottom = 102.994
+rect_min_size = Vector2( 128, 99 )
+
+[node name="ColorRect2" type="ColorRect" parent="Passive Effects/scrollcontainer/GridContainer/6"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 193.0
+margin_bottom = 102.0
+rect_min_size = Vector2( 126, 100 )
+color = Color( 0, 0, 0, 1 )
+
+[connection signal="mouse_entered" from="stats_sheet/statscontainer/hp_label" to="stats_sheet" method="_on_hp_label_mouse_entered"]
+[connection signal="mouse_exited" from="stats_sheet/statscontainer/hp_label" to="stats_sheet" method="_on_hp_label_mouse_exited"]
+[connection signal="mouse_entered" from="stats_sheet/statscontainer/mana_label" to="stats_sheet" method="_on_mana_label_mouse_entered"]
+[connection signal="mouse_exited" from="stats_sheet/statscontainer/mana_label" to="stats_sheet" method="_on_mana_label_mouse_exited"]
+[connection signal="mouse_entered" from="stats_sheet/statscontainer/dmg_label" to="stats_sheet" method="_on_dmg_label_mouse_entered"]
+[connection signal="mouse_exited" from="stats_sheet/statscontainer/dmg_label" to="stats_sheet" method="_on_dmg_label_mouse_exited"]
+[connection signal="mouse_entered" from="stats_sheet/statscontainer/def_label" to="stats_sheet" method="_on_def_label_mouse_entered"]
+[connection signal="mouse_exited" from="stats_sheet/statscontainer/def_label" to="stats_sheet" method="_on_def_label_mouse_exited"]
+[connection signal="mouse_entered" from="stats_sheet/statscontainer/spd_label" to="stats_sheet" method="_on_spd_label_mouse_entered"]
+[connection signal="mouse_exited" from="stats_sheet/statscontainer/spd_label" to="stats_sheet" method="_on_spd_label_mouse_exited"]
+[connection signal="mouse_entered" from="stats_sheet/statscontainer/pierce_label" to="stats_sheet" method="_on_pierce_label_mouse_entered"]
+[connection signal="mouse_exited" from="stats_sheet/statscontainer/pierce_label" to="stats_sheet" method="_on_pierce_label_mouse_exited"]
+[connection signal="mouse_entered" from="stats_sheet/statscontainer/phys_res_label" to="stats_sheet" method="_on_phys_res_label_mouse_entered"]
+[connection signal="mouse_exited" from="stats_sheet/statscontainer/phys_res_label" to="stats_sheet" method="_on_phys_res_label_mouse_exited"]
+[connection signal="mouse_entered" from="stats_sheet/statscontainer/fire_res_label" to="stats_sheet" method="_on_fire_res_label_mouse_entered"]
+[connection signal="mouse_exited" from="stats_sheet/statscontainer/fire_res_label" to="stats_sheet" method="_on_fire_res_label_mouse_exited"]
+[connection signal="mouse_entered" from="stats_sheet/statscontainer/ice_res_label" to="stats_sheet" method="_on_ice_res_label_mouse_entered"]
+[connection signal="mouse_exited" from="stats_sheet/statscontainer/ice_res_label" to="stats_sheet" method="_on_ice_res_label_mouse_exited"]
+[connection signal="mouse_entered" from="stats_sheet/statscontainer/lightning_res_label" to="stats_sheet" method="_on_lightning_res_label_mouse_entered"]
+[connection signal="mouse_exited" from="stats_sheet/statscontainer/lightning_res_label" to="stats_sheet" method="_on_lightning_res_label_mouse_exited"]
+[connection signal="mouse_entered" from="stats_sheet/statscontainer/phys_dmg_label" to="stats_sheet" method="_on_phys_dmg_label_mouse_entered"]
+[connection signal="mouse_exited" from="stats_sheet/statscontainer/phys_dmg_label" to="stats_sheet" method="_on_phys_dmg_label_mouse_exited"]
+[connection signal="mouse_entered" from="stats_sheet/statscontainer/fire_dmg_label" to="stats_sheet" method="_on_fire_dmg_label_mouse_entered"]
+[connection signal="mouse_exited" from="stats_sheet/statscontainer/fire_dmg_label" to="stats_sheet" method="_on_fire_dmg_label_mouse_exited"]
+[connection signal="mouse_entered" from="stats_sheet/statscontainer/ice_dmg_label" to="stats_sheet" method="_on_ice_dmg_label_mouse_entered"]
+[connection signal="mouse_exited" from="stats_sheet/statscontainer/ice_dmg_label" to="stats_sheet" method="_on_ice_dmg_label_mouse_exited"]
+[connection signal="mouse_entered" from="stats_sheet/statscontainer/lightning_dmg_label" to="stats_sheet" method="_on_lightning_dmg_label_mouse_entered"]
+[connection signal="mouse_exited" from="stats_sheet/statscontainer/lightning_dmg_label" to="stats_sheet" method="_on_lightning_dmg_label_mouse_exited"]
+[connection signal="mouse_entered" from="stats_sheet/statscontainer/weapon_dmg_label" to="stats_sheet" method="_on_weapon_dmg_label_mouse_entered"]
+[connection signal="mouse_exited" from="stats_sheet/statscontainer/weapon_dmg_label" to="stats_sheet" method="_on_weapon_dmg_label_mouse_exited"]
+[connection signal="mouse_entered" from="stats_sheet/statscontainer/boost_label" to="stats_sheet" method="_on_boost_label_mouse_entered"]
+[connection signal="mouse_exited" from="stats_sheet/statscontainer/boost_label" to="stats_sheet" method="_on_boost_label_mouse_exited"]
+[connection signal="mouse_entered" from="stats_sheet/statscontainer/debuff_label" to="stats_sheet" method="_on_debuff_label_mouse_entered"]
+[connection signal="mouse_exited" from="stats_sheet/statscontainer/debuff_label" to="stats_sheet" method="_on_debuff_label_mouse_exited"]

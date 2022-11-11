@@ -16,4 +16,5 @@ func create_label(text_given, color) -> void:
 	yield(get_tree().create_timer(0.01), "timeout")
 	scroll_container.scroll_vertical += 999
 	
+
 	

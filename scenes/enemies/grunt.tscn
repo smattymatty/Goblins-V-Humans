@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/enemies/enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/enemies/grunt.gd" type="Script" id=2]
+
+[node name="grunt" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Sprite" parent="." index="1"]
+frame = 3
+
+[node name="raycast" parent="." index="4"]
+collide_with_areas = true
