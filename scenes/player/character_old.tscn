@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://assets/ascii_characters.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/ascii_characters.png" type="Texture" id=1]
 [ext_resource path="res://scenes/player/character_old.gd" type="Script" id=2]
 [ext_resource path="res://assets/ui/target_indicator.png" type="Texture" id=3]
-[ext_resource path="res://assets/ascii_tileset.png" type="Texture" id=4]
+[ext_resource path="res://assets/images/ascii_tileset.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 14, 14 )

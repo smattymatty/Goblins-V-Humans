@@ -22,7 +22,7 @@ func _ready() -> void:
 	
 func shuffle_locations_and_spawn(amount) -> void:
 	fog_location_array.shuffle()
-	for i in range(amount):
+	for _i in range(amount):
 		instance_death_fog(fog_location_array[0])
 		fog_location_array.remove(0)
 	death_fog_activated += 1

@@ -54,6 +54,7 @@ func _on_Area2D_body_entered(body: Node) -> void:
 	deactivate(2)
 	
 func _on_Area2D_area_entered(area: Area2D) -> void:
+	deactivate(2)
 	if moved == true:
 		move_randomly(['Left','Right','Up','Down'])
  

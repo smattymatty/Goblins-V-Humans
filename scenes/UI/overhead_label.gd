@@ -10,6 +10,7 @@ func set_text(text:String, color:Color, size:float) -> void:
 	animation = $"%AnimationPlayer"
 	label = $"%Label"
 	label.modulate = color
+# warning-ignore:standalone_expression
 	self.scale * size
 	label.text = text
 	animation.queue("FadeAway")

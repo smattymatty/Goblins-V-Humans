@@ -1,6 +1,12 @@
 extends Control
 
+var effect_block = preload("res://scenes/UI/effect_block.tscn")
+var e_block = effect_block as EffectBlock
+var active_effects = {}
+
 export(Resource) var stats = stats as PlayerStats
+
+onready var aeffects_grid_container: GridContainer = $"%aeffects_GridContainer"
 
 onready var hp_label: Label = $"%hp_label"
 onready var dmg_label: Label = $"%dmg_label"
@@ -26,7 +32,6 @@ var is_for:String = 'player'
 func _ready() -> void:
 	if is_for == 'player':
 		update_player_stats()
-		update_active_effects()
 
 func update_player_stats() -> void:
 	hp_label.text = 'Health Points: ' + str(stats.hp) + '/' + str(stats.max_hp)
@@ -49,4 +54,12 @@ func update_player_stats() -> void:
 	debuff_label.text = 'Debuff Resist: ' + str((1-(stats.debuff_multi))*100) + "%"
 
 func update_active_effects() -> void:
-	$"Active Effects/Label".text = str(stats.powerups)
+	for p in Global.player.powerups.values():
+		if active_effects.has(p['name']) == false:
+			active_effects[p['name']] = {'value':p['value'],'turns_left':p['turns_left']}
+			var e_block_instance = effect_block.instance()
+			e_block_instance.set_label_text(p['name'],Global.YELLOW)
+			
+			aeffects_grid_container.add_child(e_block_instance)
+	print(active_effects)
+	

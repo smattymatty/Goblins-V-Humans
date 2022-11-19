@@ -1,0 +1,177 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/UI/bot_block.gd" type="Script" id=1]
+[ext_resource path="res://resources/ui_theme.tres" type="Theme" id=2]
+[ext_resource path="res://assets/ui/big_health_bar.png" type="Texture" id=3]
+[ext_resource path="res://scenes/UI/basic_stats.gd" type="Script" id=4]
+
+[node name="bot_block_1" type="Control"]
+margin_left = 8.0
+margin_top = 452.0
+margin_right = 340.0
+margin_bottom = 532.0
+mouse_filter = 2
+script = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 332.0
+margin_bottom = 80.0
+mouse_filter = 2
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 331.0
+margin_bottom = 79.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="toprightbutton" type="TextureButton" parent="."]
+margin_left = 308.0
+margin_right = 332.0
+margin_bottom = 12.0
+
+[node name="ColorRect" type="ColorRect" parent="toprightbutton"]
+margin_right = 24.0
+margin_bottom = 12.0
+mouse_filter = 2
+
+[node name="ColorRect2" type="ColorRect" parent="toprightbutton"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 23.0
+margin_bottom = 11.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="options" type="Control" parent="."]
+unique_name_in_owner = true
+anchor_top = -0.85
+anchor_right = 0.169
+margin_left = 308.0
+margin_right = 307.892
+margin_bottom = -4.0
+
+[node name="ColorRect" type="ColorRect" parent="options"]
+margin_right = 56.0
+margin_bottom = 67.0
+mouse_filter = 2
+
+[node name="ColorRect2" type="ColorRect" parent="options"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 55.0
+margin_bottom = 66.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="remove_options_timer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="update_timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.5
+autostart = true
+
+[node name="decks" type="Control" parent="."]
+margin_top = 1.0
+margin_right = 331.0
+margin_bottom = 79.0
+mouse_filter = 2
+
+[node name="basic_stats" type="Control" parent="decks"]
+margin_left = 1.0
+margin_right = 331.0
+margin_bottom = 78.0
+mouse_filter = 2
+script = ExtResource( 4 )
+
+[node name="hp_label" type="Label" parent="decks/basic_stats"]
+unique_name_in_owner = true
+modulate = Color( 0.623529, 0.305882, 0.266667, 1 )
+margin_left = 2.0
+margin_top = 8.0
+margin_right = 120.0
+margin_bottom = 22.0
+theme = ExtResource( 2 )
+text = "HP: 100/100"
+
+[node name="mp_label" type="Label" parent="decks/basic_stats"]
+unique_name_in_owner = true
+modulate = Color( 0.533333, 0.494118, 0.796078, 1 )
+margin_left = 2.0
+margin_top = 24.0
+margin_right = 122.0
+margin_bottom = 38.0
+theme = ExtResource( 2 )
+text = "MP: 100/100"
+
+[node name="dmg_label" type="Label" parent="decks/basic_stats"]
+unique_name_in_owner = true
+modulate = Color( 0.678431, 0.678431, 0.678431, 1 )
+margin_left = 2.0
+margin_top = 40.0
+margin_right = 122.0
+margin_bottom = 54.0
+theme = ExtResource( 2 )
+text = "DMG: 100"
+
+[node name="def_label" type="Label" parent="decks/basic_stats"]
+unique_name_in_owner = true
+modulate = Color( 0.415686, 0.74902, 0.776471, 1 )
+margin_left = 2.0
+margin_top = 57.0
+margin_right = 122.0
+margin_bottom = 71.0
+theme = ExtResource( 2 )
+text = "DEF: 100"
+
+[node name="spd_label" type="Label" parent="decks/basic_stats"]
+unique_name_in_owner = true
+modulate = Color( 0.360784, 0.670588, 0.368627, 1 )
+margin_left = 121.0
+margin_top = 40.0
+margin_right = 199.0
+margin_bottom = 54.0
+theme = ExtResource( 2 )
+text = "SPD: 10"
+
+[node name="turn_label" type="Label" parent="decks/basic_stats"]
+unique_name_in_owner = true
+modulate = Color( 0.360784, 0.670588, 0.368627, 1 )
+margin_left = 110.0
+margin_top = 57.0
+margin_right = 271.0
+margin_bottom = 71.0
+theme = ExtResource( 2 )
+text = "+TURN: 10%"
+
+[node name="hp_progress" type="TextureProgress" parent="decks/basic_stats"]
+unique_name_in_owner = true
+modulate = Color( 0.623529, 0.305882, 0.266667, 1 )
+margin_left = 128.0
+margin_top = 7.0
+margin_right = 448.0
+margin_bottom = 39.0
+rect_scale = Vector2( 0.55, 0.375 )
+value = 39.0
+texture_progress = ExtResource( 3 )
+
+[node name="mp_progress" type="TextureProgress" parent="decks/basic_stats"]
+unique_name_in_owner = true
+modulate = Color( 0.533333, 0.494118, 0.796078, 1 )
+margin_left = 128.0
+margin_top = 23.0
+margin_right = 448.0
+margin_bottom = 55.0
+rect_scale = Vector2( 0.55, 0.375 )
+value = 59.0
+texture_progress = ExtResource( 3 )
+
+[connection signal="mouse_entered" from="toprightbutton" to="." method="_on_topleftbutton_mouse_entered"]
+[connection signal="mouse_exited" from="toprightbutton" to="." method="_on_topleftbutton_mouse_exited"]
+[connection signal="pressed" from="toprightbutton" to="." method="_on_topleftbutton_pressed"]
+[connection signal="mouse_entered" from="options" to="." method="_on_options_mouse_entered"]
+[connection signal="mouse_exited" from="options" to="." method="_on_options_mouse_exited"]
+[connection signal="timeout" from="remove_options_timer" to="." method="_on_remove_options_timer_timeout"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/fonts/C64_Pro-STYLE.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/ui_theme.tres" type="Theme" id=2]
 [ext_resource path="res://scenes/UI/character_sheet.gd" type="Script" id=3]
 [ext_resource path="res://resources/player_stats.tres" type="Resource" id=4]
 [ext_resource path="res://scenes/UI/stats_sheet.gd" type="Script" id=5]
+[ext_resource path="res://scenes/UI/Active Effects.gd" type="Script" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 26
@@ -807,6 +808,7 @@ autowrap = true
 [node name="Active Effects" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
+script = ExtResource( 6 )
 
 [node name="ColorRect" type="ColorRect" parent="Active Effects"]
 margin_left = 416.0
@@ -825,22 +827,18 @@ color = Color( 0, 0, 0, 1 )
 margin_left = 420.0
 margin_top = 355.0
 margin_right = 641.0
-margin_bottom = 394.0
+margin_bottom = 374.0
 custom_fonts/font = SubResource( 4 )
 text = "ACTIVE EFFECTS"
 
-[node name="GridContainer" type="GridContainer" parent="Active Effects"]
+[node name="aeffects_GridContainer" type="GridContainer" parent="Active Effects"]
+unique_name_in_owner = true
+anchor_right = 2.0
 margin_left = 419.0
 margin_top = 374.0
-margin_right = 815.0
+margin_right = 736.0
 margin_bottom = 463.0
-
-[node name="Label" type="Label" parent="Active Effects"]
-margin_left = 432.0
-margin_top = 384.0
-margin_right = 544.0
-margin_bottom = 416.0
-text = "yaya"
+columns = 3
 
 [node name="Passive Effects" type="Control" parent="."]
 margin_left = 416.0

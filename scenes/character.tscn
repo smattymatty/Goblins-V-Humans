@@ -1,12 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://assets/ascii_characters.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/ascii_characters.png" type="Texture" id=1]
 [ext_resource path="res://scenes/character.gd" type="Script" id=2]
 [ext_resource path="res://assets/ui/target_indicator.png" type="Texture" id=3]
 [ext_resource path="res://resources/animations/AttackUp.tres" type="Animation" id=4]
 [ext_resource path="res://resources/animations/AttackLeft.tres" type="Animation" id=5]
 [ext_resource path="res://resources/animations/AttackDown.tres" type="Animation" id=6]
 [ext_resource path="res://resources/animations/AttackRight.tres" type="Animation" id=7]
+[ext_resource path="res://scenes/characters/raycast.gd" type="Script" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15, 15 )
@@ -24,7 +25,7 @@ margin_left = -16.0
 margin_top = -16.0
 margin_right = 16.0
 margin_bottom = 16.0
-color = Color( 0, 0, 0, 1 )
+color = Color( 0.0470588, 0.0627451, 0.0745098, 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 unique_name_in_owner = true
@@ -73,6 +74,52 @@ collision_mask = 8
 position = Vector2( -7.15256e-07, 0 )
 scale = Vector2( 1.44235, 0.797661 )
 shape = SubResource( 2 )
+
+[node name="debug_label" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+margin_left = -34.0
+margin_top = 16.0
+margin_right = 34.0
+margin_bottom = 48.0
+text = "debug"
+align = 1
+autowrap = true
+
+[node name="raycasts" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="down" type="RayCast2D" parent="raycasts"]
+enabled = true
+cast_to = Vector2( 0, 32 )
+collision_mask = 70
+collide_with_areas = true
+script = ExtResource( 8 )
+direction = "Down"
+
+[node name="right" type="RayCast2D" parent="raycasts"]
+enabled = true
+cast_to = Vector2( 32, 0 )
+collision_mask = 70
+collide_with_areas = true
+script = ExtResource( 8 )
+direction = "Right"
+
+[node name="left" type="RayCast2D" parent="raycasts"]
+enabled = true
+cast_to = Vector2( -32, 0 )
+collision_mask = 70
+collide_with_areas = true
+script = ExtResource( 8 )
+direction = "Left"
+
+[node name="up" type="RayCast2D" parent="raycasts"]
+enabled = true
+cast_to = Vector2( 0, -32 )
+collision_mask = 70
+collide_with_areas = true
+script = ExtResource( 8 )
+direction = "Up"
 
 [connection signal="area_entered" from="target_area" to="." method="_on_target_area_area_entered"]
 [connection signal="area_exited" from="target_area" to="." method="_on_target_area_area_exited"]

@@ -25,13 +25,15 @@ func _turn_start() -> void:
 	for i in powerup_positions:
 		i.move_randomly(['Left','Right','Up','Down'])
 	spawn_random_powerup()
-	if turns_since_goblin > 2: 
-		var random_number = round(rand_range(1,100) ) + (turns_since_goblin * 10)
+	if turns_since_goblin > 2:
+		randomize()
+		var random_number = round(rand_range(1,50) ) + (turns_since_goblin * 5)
 		print('random goblin number: ', random_number)
 		if random_number >= 100:
 			spawn_goblin_grunt()
 	if turns_since_human > 2: 
-		var random_number = round(rand_range(1,100))  + (turns_since_human * 10)
+		randomize()
+		var random_number = round(rand_range(1,50))  + (turns_since_human * 5)
 		print('random human number: ', random_number)
 		if random_number >= 100:
 			spawn_human_grunt()
@@ -94,7 +96,7 @@ func spawn_random_powerup() -> void:
 		else:
 			times_checked +=1
 		if times_checked == positions.size():
-			print('-!-!ERROR!-!- ALL SPAWNPOINTS ARE DEACTIVATED')
+			print('-!-!ERROR!-!- ALL SPAWNPOINTS ARE DEACTIVATED') 
 
 func populate_powerups() -> Array:
 	var base = load("res://scenes/items/powerups/base_powerup.tscn")

@@ -63,3 +63,18 @@ texture = ExtResource( 4 )
 tree_root = SubResource( 4 )
 active = true
 parameters/blend_position = Vector2( 0.00315452, 0.0149254 )
+
+[node name="raycasts" parent="." index="12"]
+visible = false
+
+[node name="down" parent="raycasts" index="0"]
+enabled = false
+
+[node name="right" parent="raycasts" index="1"]
+enabled = false
+
+[node name="left" parent="raycasts" index="2"]
+enabled = false
+
+[node name="up" parent="raycasts" index="3"]
+enabled = false

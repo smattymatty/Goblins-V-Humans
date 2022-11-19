@@ -2,7 +2,7 @@ extends Control
 
 
 var location
-var target
+var stored_target
 var scroll_finished:bool = false
 
 onready var hp_label: Label = $"%hp_label"
@@ -24,42 +24,43 @@ func _ready() -> void:
 	scroll_timer.start(2.0)
 
 func _update_timer_tick() -> void:
-	if is_instance_valid(target):
-		update_stats(target)
+	if is_instance_valid(stored_target):
+		update_stats(stored_target)
 
 func update_stats(target) -> void:
 #	self.rect_position = target.overhead_stats_position.global_position
 	target.has_overhead_stats = true
 	$"%name_label".text = str(target.nametag)
 	if target.is_in_group('enemy'):
-		$"%hp_label".text = "hp:" + str(target.hp) + '/' + str(target.max_hp)
-		$"%spd_label".text = 'spd:' + str(target.speed)
-		$"%dmg_label".text = 'dmg: ' + str(target.damage)
-		$"stats/def_label".text = 'def ' + str(target.defense)
+		$"%hp_label".text = "hp:" + str(stored_target.hp) + '/' + str(stored_target.max_hp)
+		$"%spd_label".text = 'spd:' + str(stored_target.speed)
+		$"%dmg_label".text = 'dmg: ' + str(stored_target.damage)
+		$"stats/def_label".text = 'def ' + str(stored_target.defense)
 	if target.is_in_group('player'):
-		$"%hp_label".text = "hp:" + str(target.stats.hp)
-		$"%spd_label".text = 'spd:'+ str(target.stats.speed)
-		$"stats/def_label".text = 'def ' + str(target.stats.defense)
-		$"%dmg_label".text = 'dmg: ' + str(target.stats.base_damage + target.stats.weapon_damage)
+		$"%hp_label".text = "hp:" + str(stored_target.stats.hp)
+		$"%spd_label".text = 'spd:'+ str(stored_target.stats.speed)
+		$"stats/def_label".text = 'def ' + str(stored_target.stats.defense)
+		$"%dmg_label".text = 'dmg: ' + str(stored_target.stats.base_damage + stored_target.stats.weapon_damage)
 	
 func remove(body) -> void:
 	if is_instance_valid(body):
-		if body == target:
+		if body == stored_target:
 			$"%remove_timer".start(0.5)
 			yield($"%remove_timer", "timeout")
-			target.has_overhead_stats = false
+			if is_instance_valid(stored_target):
+				stored_target.has_overhead_stats = false
 			queue_free()
 
 func hard_remove(body) -> void:
-	if body == target:
-		target.has_overhead_stats = false
+	if body == stored_target:
+		stored_target.has_overhead_stats = false
 		queue_free()
 
 func cancel_remove(target) -> void:
-	if target == get_parent():
+	if stored_target == get_parent():
 		$"%remove_timer".stop()
 
-func scroll_h_bar(amount:int,target) -> void:
+func scroll_h_bar(amount,target) -> void:
 	if scroll_finished == false:
 		var tween = create_tween().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
 		tween.tween_property(target, 'scroll_horizontal', amount, float(amount/50))

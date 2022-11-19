@@ -13,5 +13,5 @@ func spawn_overhead_stats(target, instance) -> void:
 #		i.queue_free()
 #		existing_instances = overhead_stats_node.get_children()
 	instance.rect_position = target.overhead.global_position
-	instance.target = target
+	instance.stored_target = target
 	overhead_stats_node.add_child(instance)

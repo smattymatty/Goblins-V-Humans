@@ -1,0 +1,69 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://resources/ui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/fonts/C64_Pro-STYLE.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://scenes/UI/effect_block.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 12
+font_data = ExtResource( 2 )
+
+[node name="effect_block" type="Control"]
+rect_min_size = Vector2( 110, 31 )
+script = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+margin_left = 1.0
+margin_right = 109.0
+margin_bottom = 32.0
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Health Boo"
+align = 1
+valign = 1
+
+[node name="ColorRect" type="ColorRect" parent="Label"]
+unique_name_in_owner = true
+show_behind_parent = true
+margin_left = -3.0
+margin_right = 109.0
+margin_bottom = 32.0
+
+[node name="ColorRect2" type="ColorRect" parent="Label"]
+unique_name_in_owner = true
+show_behind_parent = true
+margin_left = -2.0
+margin_top = 1.0
+margin_right = 108.0
+margin_bottom = 31.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="desc_label" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+margin_left = -32.0
+margin_top = -65.0
+margin_right = 132.0
+margin_bottom = -1.0
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Boosts health by 1 per stack"
+valign = 1
+autowrap = true
+
+[node name="ColorRect" type="ColorRect" parent="desc_label"]
+show_behind_parent = true
+margin_left = -2.0
+margin_right = 160.0
+margin_bottom = 64.0
+
+[node name="ColorRect2" type="ColorRect" parent="desc_label"]
+show_behind_parent = true
+margin_left = -1.0
+margin_top = 1.0
+margin_right = 159.0
+margin_bottom = 63.0
+color = Color( 0, 0, 0, 1 )
+
+[connection signal="mouse_entered" from="Label" to="." method="_on_Label_mouse_entered"]

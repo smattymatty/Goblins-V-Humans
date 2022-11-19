@@ -12,6 +12,8 @@ signal spawn_human
 signal entered_door
 signal moved_up
 signal update_time_to_move
+signal turn_time
+signal entity
 
 var debug_level = 5
 var time_between_turns = 0.0
@@ -53,3 +55,9 @@ func emit_entered_door() -> void:
 
 func emit_moved_up() -> void:
 	emit_signal('moved_up')
+
+func emit_turn_time_for_ui(turn_time, entities) -> void:
+	emit_signal('turn_time', turn_time, entities)
+	
+func emit_entitity(target) -> void:
+	emit_signal('entity', target)

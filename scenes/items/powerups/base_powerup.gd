@@ -32,3 +32,10 @@ func _on_target_area_area_exited(area: Area2D) -> void:
 	animation.queue("Disappear")
 	yield(animation,"animation_finished")
 	info.hide()
+
+
+func _on_pickup_area_area_entered(area: Area2D) -> void:
+	if area.is_in_group('spawnpoint'):
+		area.get_parent().move_randomly(['Left','Right','Up','Down'])
+	else:
+		pass

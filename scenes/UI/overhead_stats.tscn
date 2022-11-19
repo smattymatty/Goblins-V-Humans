@@ -99,7 +99,6 @@ autostart = true
 
 [node name="scroll_timer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 2.0
 one_shot = true
 
 [node name="update_timer" type="Timer" parent="."]

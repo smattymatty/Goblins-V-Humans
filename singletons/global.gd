@@ -2,9 +2,23 @@ extends Node
 
 var YELLOW = Color(0.79,0.83,0.53,1)
 var RED = Color(0.62,0.30,0.26,1)
+var ORANGE = Color(0.63,0.40,0.23,1)
 
+var player
 var entities
 var top_3_speeds
+
+
+func calculate_extra_turn_chance(target_speed):
+	if target_speed in top_3_speeds:
+		var chance = 10
+		var total:int = 0
+		for i in top_3_speeds:
+			total += i
+		var avg:int = round(total/top_3_speeds.size())
+		print('AVERAGE TOP 3 SPEEDS = ', avg)
+	else:
+		return false
 
 var goblin_names = [
 	'Zenik','Gamak', 'Ghal-baba', 'Risahg','Kelekawa','Malacandra', 'Cambarich', 

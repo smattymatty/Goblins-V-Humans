@@ -12,7 +12,7 @@
 [ext_resource path="res://resources/animations/AttackUp.tres" type="Animation" id=10]
 [ext_resource path="res://resources/animations/AttackDown.tres" type="Animation" id=11]
 [ext_resource path="res://resources/animations/MoveLeft.tres" type="Animation" id=12]
-[ext_resource path="res://assets/ascii_tileset.png" type="Texture" id=13]
+[ext_resource path="res://assets/images/ascii_tileset.png" type="Texture" id=13]
 
 [sub_resource type="Animation" id=2]
 resource_name = "CantMove"

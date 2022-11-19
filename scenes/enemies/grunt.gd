@@ -1,10 +1,11 @@
 extends Enemy
 
-var preferred_directions:Array
-var checked_directions:Array
-var tiles_moved:int = 1
+var preferred_directions:Array = ['Up','Down','Left','Right'] # set_preferred_directions function
+var checked_directions:Array # check_collisions function
+
 
 func _enter_tree() -> void:
+	type = 'Grunt'
 	moves_per_turn = 1
 	set_state('Combat','Out of Combat')
 	set_preferred_directions()
@@ -23,9 +24,15 @@ func _turn_start() -> void:
 			remaining_moves = 1
 	match turn_state:
 		"Active":
-			check_to_move(preferred_directions)
+			if check_for_enemies() == false:
+				if check_for_powerups() == false:
+#					yield(get_tree(),"idle_frame")
+					if combat_state == 'Out of Combat':
+						check_to_move(preferred_directions)
 			
 func _turn_end():
+	if on_ground == 'Enemy':
+		upgrade(sprite.frame + 1)
 	yield(get_tree().create_timer(SignalManager.time_between_turns),"timeout")
 	TurnManager.enemy_turn_finished()
 
@@ -50,7 +57,7 @@ func check_collisions(direction, iteration):
 			preferred_directions.erase(i)
 		set_raycast_to(direction)
 		yield(get_tree(),"idle_frame")
-		check_and_set_collider()
+		check_and_set_collider(raycast)
 		if collider == null or collider.is_in_group('powerup'):
 			move(direction, tiles_moved)
 		elif collider.is_in_group('tile'):
@@ -69,6 +76,26 @@ func check_collisions(direction, iteration):
 func set_preferred_directions() -> void:
 	checked_directions = []
 	if self.is_in_group('goblin'):
-		preferred_directions = ['Left','Up','Down','Right']
+		if upgraded == false:
+			preferred_directions = ['Left','Up','Down','Right']
+		else:
+			match on_ground:
+				'Enemy':
+					preferred_directions = ['Right','Up','Down','Left']
+				'Center':
+					preferred_directions = ['Right','Up','Down','Left']
+					preferred_directions.shuffle()
+				'Ally':
+					preferred_directions = ['Left','Up','Down','Right']
 	elif self.is_in_group('human'):
-		preferred_directions = ['Right', 'Up', 'Down', 'Left']
+		if upgraded == false:
+			preferred_directions = ['Right', 'Up', 'Down', 'Left']
+		else:
+			match on_ground:
+				'Enemy':
+					preferred_directions = ['Left','Up','Down','Right']
+				'Center':
+					preferred_directions = ['Right','Up','Down','Left']
+					preferred_directions.shuffle()
+				'Ally':
+					preferred_directions = ['Right', 'Up', 'Down', 'Left']

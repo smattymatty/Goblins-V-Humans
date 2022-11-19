@@ -50,7 +50,7 @@ margin_top = -108.0
 margin_right = -94.0
 margin_bottom = -94.0
 custom_fonts/font = SubResource( 1 )
-text = "Debug Level - "
+text = "label 1"
 
 [node name="debug_slider" type="HSlider" parent="debug_level"]
 unique_name_in_owner = true
@@ -70,7 +70,7 @@ margin_top = -92.0
 margin_right = -94.0
 margin_bottom = -78.0
 custom_fonts/font = SubResource( 1 )
-text = "Debug Level - "
+text = "label 2"
 
 [node name="time_btwn_turns_slider" type="HSlider" parent="time_btwn_turns"]
 unique_name_in_owner = true

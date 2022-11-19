@@ -24,6 +24,7 @@ var debuff_multi
 
 var is_moving:bool = false
 var moves_per_turn:int = 3
+var moved_last_turn:bool = false
 var remaining_moves:int = 3
 var attacks_per_turn:int = 1
 var time_to_move:float = 0.2
@@ -34,8 +35,10 @@ var directions:Array = ['Left','Right','Up','Down']
 var collider
 var on_ground:String
 var has_overhead_stats:bool = false
+
 var powerups:Dictionary
 
+onready var debug_label: Label = $"%debug_label"
 onready var timer: Timer = $"%Timer"
 onready var raycast: RayCast2D = $"%raycast"
 onready var overhead: Position2D = $"%overhead_stats_position"
@@ -43,6 +46,7 @@ onready var target_indicator: Sprite = $"%target_indicator"
 onready var animation: AnimationPlayer = $"%AnimationPlayer"
 onready var sprite: Sprite = $"%Sprite"
 onready var overhead_label: PackedScene = load("res://scenes/UI/overhead_label.tscn")
+onready var raycasts: Array = $"%raycasts".get_children()
 
 func _turn_end() -> void: # should be overidden by seperate scripts
 	pass 
@@ -55,17 +59,22 @@ func set_state(type:String, state) -> void:
 			combat_state = state
 			
 func _process(_delta: float) -> void:
-	if target_indicator.visible == true and has_overhead_stats == false:
-		yield(get_tree().create_timer(1.0),'timeout')
+	if is_instance_valid(self):
 		if target_indicator.visible == true and has_overhead_stats == false:
-			instance_overhead_stats(self)
-			has_overhead_stats = true
-	if target_indicator.visible == false and has_overhead_stats == true:
-		SignalManager.emit_hard_remove_overhead_stats(self)
-		has_overhead_stats = false
+			yield(get_tree().create_timer(1.0),'timeout')
+			if target_indicator.visible == true and has_overhead_stats == false:
+				instance_overhead_stats(self)
+				has_overhead_stats = true
+		if target_indicator.visible == false and has_overhead_stats == true:
+			SignalManager.emit_hard_remove_overhead_stats(self)
+			has_overhead_stats = false
+		if SignalManager.debug_level > 1 and debug_label.visible == false:
+			debug_label.show()
+		
+		
 
 func _on_target_area_area_entered(area: Area2D) -> void:
-	if self.is_in_group('death fog') == false:
+	if self.is_in_group('death fog') == false and is_instance_valid(self):
 		target_indicator.show()
 		SignalManager.emit_mouse_entered_target_area(self)
 		area.mouseover_timer.start(0.5)
@@ -73,15 +82,16 @@ func _on_target_area_area_entered(area: Area2D) -> void:
 		instance_overhead_stats(self)
 
 func _on_target_area_area_exited(area: Area2D) -> void:
-	area.mouseover_timer.stop()
-	target_indicator.hide()
-	SignalManager.emit_mouse_left_target_area(self)
-	
+	if is_instance_valid(self):
+		area.mouseover_timer.stop()
+		target_indicator.hide()
+		SignalManager.emit_mouse_left_target_area(self)
+		
 func instance_overhead_stats(target) -> void:
 	var overhead_stats = load("res://scenes/UI/overhead_stats.tscn")
 	var overhead_stats_instance = overhead_stats.instance()
 	overhead_stats_instance.rect_position = target.overhead.position
-	overhead_stats_instance.target = target
+	overhead_stats_instance.stored_target = target
 	overhead_stats_instance.update_stats(target)
 	SignalManager.emit_overhead_stats(target, overhead_stats_instance)
 
@@ -98,10 +108,12 @@ func set_raycast_to(direction:String) -> void:
 
 func multiply_raycast_length(amount:float) -> void:
 	raycast_length *= amount
+	for i in raycasts:
+		i.cast_to *= amount
 	
-func check_and_set_collider() -> bool:
-	if raycast.is_colliding():
-		collider = raycast.get_collider()
+func check_and_set_collider(raycaster) -> bool:
+	if raycaster.is_colliding():
+		collider = raycaster.get_collider()
 		return true
 	else:
 		collider = null
@@ -138,6 +150,7 @@ func move(direction:String,tiles:int):
 	check_remaining_moves()
 	
 func cant_move() -> void:
+	moved_last_turn = false
 	randomize()
 	remaining_moves -= 1
 	var movement_tween = create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN_OUT)
@@ -160,58 +173,71 @@ func cant_move() -> void:
 		check_remaining_moves()
 	
 func check_remaining_moves() -> void:
+	handle_move_combat()
+	moved_last_turn = true
 	if remaining_moves <= 0:
 		_turn_end() 
 
-#func _on_Timer_timeout() -> void:
-#	directions.shuffle()
-#	set_raycast_to(directions[0])
-#	move(directions[0],int(rand_range(1,3)))
+func set_debug_label(text):
+	debug_label.text = str(text)
 
 func attack(direction:String,target) -> void:
+	if SignalManager.debug_level > 3:
+		print('--Attack-- ', self.nametag, ' attacked ', target, ' in direction: ', direction)
+	set_state('Combat','In Combat')
 	if self.is_in_group('player'):
 		animation.queue('Attack'+direction)
 		target.calculate_damage((self.stats.base_damage + self.stats.weapon_damage),
 		self.stats.weapon_damage_type,self)
+		if target.hp <= 0:
+			set_state('Combat','Out of Combat')
 	if self.is_in_group('enemy'):
 		animation.queue('Attack'+direction)
 		target.calculate_damage(self.damage,self.stats.damage_type,self)
+		if target.is_in_group('player'):
+			if target.stats.hp <= 0:
+				set_state('Combat','Out of Combat')
+		elif target.is_in_group('enemy'):
+			if target.hp <= 0:
+				set_state('Combat','Out of Combat')
 	yield(animation,'animation_finished')
+	moved_last_turn = false
 	_turn_end()
 
 func calculate_damage(amount,type,damager) -> void:
+	set_state('Combat','In Combat')
 	var damage_after_defense
 	var total_damage
 	if self.is_in_group('player'):
-		damage_after_defense = amount - self.stats.defense
+		damage_after_defense = amount - (self.stats.defense - damager.defense_pierce)
 		match type:
 			'Physical':
-				total_damage = damage_after_defense * self.stats.physical_resist
+				total_damage = round(damage_after_defense * self.stats.physical_resist)
 			'Fire':
-				total_damage = damage_after_defense * self.stats.fire_resist
+				total_damage = round(damage_after_defense * self.stats.fire_resist)
 			'Ice':
-				total_damage = damage_after_defense * self.stats.ice_resist
+				total_damage = round(damage_after_defense * self.stats.ice_resist)
 			'Lightning':
-				total_damage = damage_after_defense * self.stats.lightning_resist
-		SignalManager.emit_console_label(damager.nametag + ' has dealt ' + str(total_damage) + 
+				total_damage = round(damage_after_defense * self.stats.lightning_resist)
+		SignalManager.emit_console_label(damager.nametag + ' has dealt ' + str(clamp(total_damage, 1, 9999)) + 
 		" to " + self.nametag, Color.white)
-		self.stats.hp -= total_damage
+		self.stats.hp -= clamp(total_damage, 1, 9999)
 		if self.stats.hp <= 0:
 			die()
 	if self.is_in_group('enemy'):
-		damage_after_defense = amount - self.defense
+		damage_after_defense = amount - (self.defense - damager.defense_pierce)
 		match type:
 			'Physical':
-				total_damage = damage_after_defense * self.physical_resist
+				total_damage = round(damage_after_defense * self.physical_resist)
 			'Fire':
-				total_damage = damage_after_defense * self.fire_resist
+				total_damage = round(damage_after_defense * self.fire_resist)
 			'Ice':
-				total_damage = damage_after_defense * self.ice_resist
+				total_damage = round(damage_after_defense * self.ice_resist)
 			'Lightning':
-				total_damage = damage_after_defense * self.lightning_resist
+				total_damage = round(damage_after_defense * self.lightning_resist)
 		SignalManager.emit_console_label(damager.nametag + ' has dealt ' + str(total_damage) + 
 		" to " + self.nametag, Color.white)
-		self.hp -= total_damage
+		self.hp -= clamp(total_damage, 1, 9999)
 		if self.hp < 0:
 			die()
 	
@@ -219,7 +245,7 @@ func die() -> void:
 	SignalManager.emit_enemy_died(self)
 	queue_free()
 		
-func moveup() -> void:
+func moveup() -> void: # for the door entrance
 	yield(get_tree().create_timer(1.0),'timeout')
 	var movement_tween = create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN_OUT)
 	var target_location:Vector2
@@ -233,9 +259,9 @@ func collect_powerup(function) -> void:
 	match function:
 		'+ 1 basic stats':
 			if 'basic_stats' in powerups:
-				powerups['basic_stats'] += 1
+				powerups['basic_stats']['value'] += 1
 			else:
-				powerups['basic_stats'] = 1
+				powerups['basic_stats'] = {'name':'Basic Boost', 'value':1, 'turns_left':-1}
 			if self.is_in_group('player'):
 				label_instance.set_text('+'+str(round(1 * self.stats.boost_multi))+' BASE STATS', 
 				Global.YELLOW, 1.0)
@@ -255,9 +281,9 @@ func collect_powerup(function) -> void:
 				
 		'health boost':
 			if 'health_boost' in powerups:
-				powerups['health_boost'] += 2
+				powerups['health_boost']['value'] += 2
 			else:
-				powerups['health_boost'] = 2
+				powerups['health_boost'] = {'name':'Health Boost','value':1, 'turns_left':-1}
 			if self.is_in_group('player'):
 				label_instance.set_text('+'+str(round(2 * self.stats.boost_multi))+' MAX HP', 
 				Global.YELLOW, 1.0)
@@ -271,9 +297,9 @@ func collect_powerup(function) -> void:
 				
 		'+ 2 damage stats':
 			if 'damage_boost' in powerups:
-				powerups['damage_boost'] += 2
+				powerups['damage_boost']['value'] += 2
 			else:
-				powerups['damage_boost'] = 2
+				powerups['damage_boost'] = {'name':'Damage Boost','value':1, 'turns_left':-1}
 			if self.is_in_group('player'):
 				label_instance.set_text('+'+str(round(2 * self.stats.boost_multi))+' DAMAGE STATS', 
 				Global.YELLOW, 1.0)
@@ -297,9 +323,9 @@ func collect_powerup(function) -> void:
 				
 		'+ 2 defense stats':
 			if 'defense_boost' in powerups:
-				powerups['defense_boost'] += 2
+				powerups['defense_boost']['value'] += 2
 			else:
-				powerups['defense_boost'] = 2
+				powerups['defense_boost'] = {'name':'Defense Boost','value':1, 'turns_left':-1}
 			if self.is_in_group('player'):
 				label_instance.set_text('+'+str(round(2 * self.stats.boost_multi))+' DEFENSE STATS', 
 				Global.YELLOW, 1.0)
@@ -323,3 +349,9 @@ func collect_powerup(function) -> void:
 	self.add_child(label_instance_2)
 	if SignalManager.debug_level > 3:
 		print(self.nametag, ' powerups dictionary: ', str(powerups))
+
+func handle_move_combat() -> void:
+	if moved_last_turn == true:
+		set_state('Combat','Out of Combat')
+	else:
+		pass

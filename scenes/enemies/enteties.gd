@@ -21,7 +21,7 @@ func create_entity_speed_arrays() -> void:
 	for i in entities_array.size():
 		speeds.append(entities_array[i].speed)
 	var amount_of_entities = entities_array.size()
-	var top_3_speeds:Array
+	var top_3_speeds:Array= []
 	var steps = 0
 	while sorted_entities.size() < amount_of_entities:
 		for i in entities_array: # only put the entity in the array if it's speed is the highest, do this until the sorted array is full
@@ -51,8 +51,13 @@ func next_turn() -> void:
 	yield(get_tree().create_timer(SignalManager.time_between_turns),'timeout')
 	SignalManager.emit_speed_array(sorted_entities)
 	if sorted_entities.size() > 0:
-		sorted_entities[0]._turn_start()
-		sorted_entities.pop_front()
+		if is_instance_valid(sorted_entities[0]):
+			sorted_entities[0]._turn_start()
+			sorted_entities.pop_front()
+		else:
+			sorted_entities[1]._turn_start()
+			sorted_entities.pop_front()
+			sorted_entities.pop_front()
 	else:
 		create_entity_speed_arrays()
 		TurnManager.emit_turn_passed()
@@ -72,12 +77,5 @@ func convert_to_nametags(entity_array) -> Array:
 	var new_array:Array = []
 	for i in entity_array:
 		new_array.append(i.nametag)
+
 	return new_array
-	
-func get_top_3(speed_array):
-	print(' GET TOP 3 ! ! ! ')
-	var dummy_array = speed_array
-	print(dummy_array, ' ! ! ! ')
-	var top_3:Array
-	return dummy_array
-	

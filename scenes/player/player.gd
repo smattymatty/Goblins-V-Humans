@@ -8,15 +8,16 @@ var mouse_direction:String
 onready var movement_indicator: Sprite = $"%movement_indicator"
 
 func _ready() -> void:
+	Global.player = self
 	SignalManager.connect("entered_door",self,'moveup')
 	set_state('Combat','Out of Combat')
 	stats.mana = stats.max_mana
 	stats.hp = stats.max_hp
 	nametag = stats.nametag
-	speed = stats.speed
+	update_stats()
 
 func _turn_start() -> void:
-	speed = stats.speed
+	update_stats()
 	turn_state = 'Active'
 	match combat_state:
 		'Out of Combat':
@@ -54,6 +55,7 @@ func _process(delta: float) -> void:
 	
 func _turn_end() -> void:
 	set_state('Turn','Inactive')
+	Global.calculate_extra_turn_chance(self.speed)
 	TurnManager.player_turn_finished()
 		
 func movement_indicator_on_mouse() -> void:
@@ -77,10 +79,14 @@ func movement_indicator_on_mouse() -> void:
 func check_and_move_or_attack(direction) -> void:
 	set_raycast_to(direction)
 	yield(get_tree(),"idle_frame")
-	if check_and_set_collider() == false:
+	if check_and_set_collider(raycast) == false:
 		move(direction, 1)
-	elif check_and_set_collider() == true:
+	elif check_and_set_collider(raycast) == true:
 		if collider.is_in_group('enemy'):
 			attack(direction,collider)
 		elif collider.is_in_group('powerup'):
 			move(direction,1)
+
+func update_stats() -> void:
+	speed = stats.speed
+	defense_pierce = stats.defense_pierce
